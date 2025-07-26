@@ -9,10 +9,18 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 
-const Form = (formControls) => {
+const Form = ({
+  formControls,
+  formData,
+  onSubmit,
+  buttonText,
+  setFormData,
+}) => {
   const renderInputByComponentType = (item) => {
     let element = null;
+    const value = formData[item.name] || "";
 
     switch (item.componentType) {
       case "input":
@@ -22,13 +30,22 @@ const Form = (formControls) => {
             placeholder={item.placeholder}
             id={item.name}
             type={item.type}
-          ></Input>
+            value={value}
+            onChange={(e) =>
+              setFormData({ ...formData, [item.name]: e.target.value })
+            }
+          />
         );
         break;
 
       case "select":
         element = (
-          <Select>
+          <Select
+            onValueChange={(value) =>
+              setFormData({ ...formData, [item.name]: value })
+            }
+            value={value}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={item.placeholder}></SelectValue>
             </SelectTrigger>
@@ -52,7 +69,8 @@ const Form = (formControls) => {
             name={item.name}
             placeholder={item.placeholder}
             id={item.id}
-          ></Textarea>
+            value={value}
+          />
         );
         break;
 
@@ -63,7 +81,11 @@ const Form = (formControls) => {
             placeholder={item.placeholder}
             id={item.name}
             type={item.type}
-          ></Input>
+            value={value}
+            onChange={(e) =>
+              setFormData({ ...formData, [item.name]: e.target.value })
+            }
+          />
         );
         break;
     }
@@ -72,7 +94,7 @@ const Form = (formControls) => {
   };
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <div className="flex flex-col gap-3">
         {formControls.map((item) => (
           <div key={item.name} className="grid w-full gap-1.5">
@@ -81,6 +103,10 @@ const Form = (formControls) => {
           </div>
         ))}
       </div>
+      
+      <Button type="submit" className="mt-2 w-full">
+        {buttonText || "Submit"}
+      </Button>
     </form>
   );
 };
