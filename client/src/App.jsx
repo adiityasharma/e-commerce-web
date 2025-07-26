@@ -11,11 +11,15 @@ import AdminFeatures from "./pages/admin/Features";
 import AdminProducts from "./pages/admin/Products";
 import ShoppingLayout from "./components/shopping/Layout";
 import NotFound from "./pages/notFound/NotFound";
+import ShoppingHome from "./pages/shopping/Home";
+import ShoppingAccount from "./pages/shopping/Account";
+import ShoppingListing from "./pages/shopping/Listing";
+import ShoppingCheckout from "./pages/shopping/Checkout";
 
 function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
-      <h1>Header components</h1>
+      {/* <h1>Header components</h1> */}
 
       <Routes>
         <Route path="/auth" element={<AuthLayout />}>
@@ -31,7 +35,10 @@ function App() {
         </Route>
 
         <Route path="/shop" element={<ShoppingLayout/>} >
-          
+          <Route path="home" element={<ShoppingHome/>} />
+          <Route path="account" element={<ShoppingAccount/>} />
+          <Route path="listing" element={<ShoppingListing/>} />
+          <Route path="checkout" element={<ShoppingCheckout/>} />
         </Route>
 
         <Route path="*" element={<NotFound/>} ></Route>
