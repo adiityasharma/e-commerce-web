@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import dbConnect from "./config/db.js";
-
+import authRouter from "./routes/auth/auth.route.js";
 
 dotenv.config()
 dbConnect();
@@ -30,7 +30,9 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
 
+app.use("/api/v1/auth", authRouter)
 
 app.listen(PORT, () => {
   console.log(`Server Started on ${PORT}`)
