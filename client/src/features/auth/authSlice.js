@@ -9,12 +9,25 @@ const initialState = {
 }
 
 export const registerUser = createAsyncThunk("/auth/register",
-  async (formData) => {
-    const response = await axios.post("http://localhost:3001/api/v1/auth/register", formData, { withCredentials: true })
-    console.log(await response.data)
-    return await response.data
+  async (formData, {rejectWithValue}) => {
+    try {
+      const response = await axios.post("http://localhost:3001/api/v1/auth/register", formData, { withCredentials: true })
+      return await response.data;
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue("Something went wrong. Please try again.");
+      }
+    }
   }
 )
+
+export const loginUser = createAsyncThunk("loginUser",
+  async (formData) => {
+    const response = await axios.get("http://localhost:3001/api/v1/auth/login", formData, { withCredentials: true })
+    return await response.json()
+})
 
 const authSlice = createSlice({
   name: "auth",
@@ -39,10 +52,12 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.isAuthenticated = false;
-        state.error = action.error;
+        state.error = action.payload || "Registertion failed";
     })
   }
 })
+
+
 
 export const { setUser } = authSlice.actions;
 
