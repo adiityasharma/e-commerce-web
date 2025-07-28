@@ -19,6 +19,7 @@ import UnAuthorized from "./pages/unAuthorized/unAuthorized";
 import CheckAuth from "./components/common/CheckAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./features/auth/authSlice";
+import { LoaderOne } from "@/components/ui/loader";
 
 function App() {
 
@@ -28,6 +29,8 @@ function App() {
   useEffect(() => {
     dispatch(checkAuth())
   }, [dispatch])
+
+  if(isLoading) return <LoaderOne />;
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">

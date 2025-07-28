@@ -3,7 +3,7 @@ import axios from "axios"
 
 const initialState = {
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
   user: null,
   error: null
 }
@@ -41,7 +41,6 @@ export const loginUser = createAsyncThunk("loginUser",
 
 export const checkAuth = createAsyncThunk("checkAuth",
   async (_, { rejectWithValue }) => {
-    console.log("CHECK AUTH CALLED");
     const response = await axios.get("http://localhost:3001/api/v1/auth/checkAuth",
       {
         withCredentials: true,
@@ -103,7 +102,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
-        console.log(action)
         state.isLoading = false;
         state.user = action.payload.success ? action.payload : null;
         state.isAuthenticated = action.payload.success;
