@@ -1,35 +1,32 @@
-import Form from '@/components/common/Form';
-import { LoginFormControl } from '@/config/formControl';
-import { loginUser } from '@/features/auth/authSlice';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-
+import Form from "@/components/common/Form";
+import { LoginFormControl } from "@/config/formControl";
+import { loginUser } from "@/features/auth/authSlice";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const initialState = {
   email: "",
-  password: ""
-}
+  password: "",
+};
 
 function Login() {
-
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const result = await dispatch(loginUser(formData)).unwrap();
       toast.success(result.message);
-      navigate("/shop", { replace: true });
+      // navigate("/shop");
     } catch (error) {
-      console.log(error)
-      toast.error(error)
+      console.log(error);
+      toast.error(error);
     }
-
-  }
+  };
 
   return (
     <div className="mx-auto w-full max-w-md space-y-6 ">
@@ -56,4 +53,4 @@ function Login() {
   );
 }
 
-export default Login
+export default Login;

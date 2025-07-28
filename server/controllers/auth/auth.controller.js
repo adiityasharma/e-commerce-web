@@ -1,5 +1,9 @@
 import { User } from "../../models/user.model.js";
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config()
 
 const registerUser = async (req, res) => {
 
@@ -47,25 +51,45 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(404).json({ message: "email and password are requried" });
+      return res.status(404).json({ success: false, message: "email and password are requried" });
     }
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.json({ message: "user does not exist" });
+      return res.json({ success: false, message: "user does not exist" });
     }
 
     const comparePassword = await bcrypt.compare(password, user.password);
 
     if (!comparePassword) {
-      return res.status(401).json({ message: "invalid credentials" });
+      return res.status(401).json({ success: false, message: "invalid credentials" });
     }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: user.role,
+        email: user.email
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "1d" }
+    )
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
+      secure: false
+    })
 
     res.status(200).json({
       success: true,
       message: "Login successful",
-      user
+      user: {
+        id: user._id,
+        email: user.email,
+        role: user.role
+      }
     });
 
 
