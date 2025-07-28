@@ -47,7 +47,6 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    console.log(req.body)
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -103,6 +102,19 @@ const loginUser = async (req, res) => {
   }
 }
 
+const logoutUser = (req, res) => {
+  try {
+    res.clearCookie("token").status(200).json({
+      success: true,
+      message: "Logged out successfully"
+    })
+  } catch (error) {
+    res.status(505).json({
+      success: false,
+      message: error || "something went wrong"
+    })
+  }
+}
 
 
-export { registerUser, loginUser };
+export { registerUser, loginUser, logoutUser };

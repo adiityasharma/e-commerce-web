@@ -6,16 +6,23 @@ dotenv.config()
 const authenticateToken = (req, res, next) => {
 
   const { token } = req.cookies
-  
+  console.log(token)
+
   if (!token) {
-    return res.status(401).json({success: false, erorr:"Unauthorized! Please Log In"})
+    return res.status(401).json({ success: false, error: "Unauthorized! Please Log In" })
   }
 
   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
-    if (err) return res.status(403).json({ success: false, erorr: "Invalid token! Please Log In" })
+    if (err) {
+      const message = err.name === "TokenExpiredError"
+        ? "Session expired. Please log in again."
+        : "Invalid token. Please log in again.";
+
+      return res.status(403).json({ success: false, error: message });
+    }
     req.user = user
     next();
   })
 }
 
-export {authenticateToken}
+export { authenticateToken }

@@ -21,9 +21,7 @@ function Login() {
     try {
       const result = await dispatch(loginUser(formData)).unwrap();
       toast.success(result.message);
-      // navigate("/shop");
     } catch (error) {
-      console.log(error);
       toast.error(error);
     }
   };
