@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
     }
 
     const isUniqueUsername = await User.findOne({ username });
-    
+
     if (isUniqueUsername) {
       return res.status(400).json({ success: false, message: "Username already exists" });
     }
@@ -30,10 +30,9 @@ const registerUser = async (req, res) => {
       password: hashedPassword
     })
 
-    res.status(201).json({ success: true, message: "Registertion successful", user: newUser })
+    res.status(201).json({ success: true, message: "Registertion successful" })
 
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       error: "something went wrong",
@@ -44,6 +43,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
+    console.log(req.body)
     const { email, password } = req.body;
 
     if (!email || !password) {
