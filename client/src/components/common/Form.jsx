@@ -70,6 +70,9 @@ const Form = ({
             placeholder={item.placeholder}
             id={item.id}
             value={value}
+            onChange={(e) =>
+              setFormData({ ...formData, [item.name]: e.target.value })
+            }
           />
         );
         break;
