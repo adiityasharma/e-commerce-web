@@ -30,7 +30,11 @@ function App() {
     dispatch(checkAuth())
   }, [dispatch])
 
-  if(isLoading) return <LoaderOne />;
+  if (isLoading) return (
+    <div className="w-full h-screen flex items-center justify-center">
+      <LoaderOne />
+    </div>
+  );
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
