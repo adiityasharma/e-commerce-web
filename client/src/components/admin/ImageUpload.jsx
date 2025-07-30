@@ -4,11 +4,13 @@ import { Input } from "../ui/input";
 import { File, UploadCloud, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import axios from "axios";
+import { LoaderOne } from "../ui/loader";
 
 const ProductImageUpload = ({
   imageFile,
   setImageFile,
   uploadedImageUrl,
+  imageLoadingState,
   setUploadedImageUrl,
   setImageLoadingState,
 }) => {
@@ -41,7 +43,7 @@ const ProductImageUpload = ({
   };
 
   const uploadImageToCloudinary = async () => {
-    setImageLoadingState(true)
+    setImageLoadingState(true);
     const data = new FormData();
     data.append("my_image", imageFile);
 
@@ -55,8 +57,8 @@ const ProductImageUpload = ({
 
     if (responce.data?.success) {
       setUploadedImageUrl(responce.data?.result.url);
-      setImageLoadingState(false)
-    };
+      setImageLoadingState(false);
+    }
   };
 
   useEffect(() => {
@@ -89,6 +91,10 @@ const ProductImageUpload = ({
             <UploadCloud className="w-8 h-8 text-muted-foreground mb-2 " />
             <span>Drag and Drop or Click to upload image</span>
           </Label>
+        ) : imageLoadingState ? (
+          <div className="w-full h-full py-5 flex items-center justify-center">
+            <LoaderOne />
+          </div>
         ) : (
           <div className="flex items-center justify-center gap-2 px-2 py-1">
             <div className="flex items-center">
