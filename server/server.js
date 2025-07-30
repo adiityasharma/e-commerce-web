@@ -6,6 +6,7 @@ import cors from "cors";
 
 import dbConnect from "./config/db.js";
 import authRouter from "./routes/auth/auth.route.js";
+import adminProductRouter from "./routes/admin/products.route.js";
 
 dotenv.config()
 dbConnect();
@@ -33,6 +34,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/admin/products", adminProductRouter)
+
 
 app.listen(PORT, () => {
   console.log(`Server Started on ${PORT}`)
