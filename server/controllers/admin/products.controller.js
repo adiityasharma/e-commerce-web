@@ -142,4 +142,4 @@ const deleteProduct = async (req, res) => {
 }
 
 
-export { handleImageUpload, fetchAllProducts, editProduct, deleteProduct }
+export { handleImageUpload, fetchAllProducts, editProduct, deleteProduct, addProduct }
