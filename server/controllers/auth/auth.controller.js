@@ -69,7 +69,8 @@ const loginUser = async (req, res) => {
       {
         id: user._id,
         role: user.role,
-        email: user.email
+        email: user.email,
+        username: user.username
       },
       process.env.JWT_SECRET_KEY,
       { expiresIn: "1d" }
@@ -104,17 +105,21 @@ const loginUser = async (req, res) => {
 
 const logoutUser = (req, res) => {
   try {
-    res.clearCookie("token").status(200).json({
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: false
+    }).status(200).json({
       success: true,
       message: "Logged out successfully"
-    })
+    });
   } catch (error) {
-    res.status(505).json({
+    res.status(500).json({
       success: false,
-      message: error || "something went wrong"
-    })
+      message: error?.message || "Something went wrong"
+    });
   }
-}
+};
+
 
 
 export { registerUser, loginUser, logoutUser };
