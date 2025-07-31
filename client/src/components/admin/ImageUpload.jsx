@@ -17,7 +17,6 @@ const ProductImageUpload = ({
   const inputRef = useRef(null);
 
   const handleImageFileChange = (e) => {
-    console.log(e.target.files[0]);
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setImageFile(selectedFile);
