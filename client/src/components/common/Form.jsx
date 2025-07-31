@@ -17,6 +17,7 @@ const Form = ({
   onSubmit,
   buttonText,
   setFormData,
+  isBtnDisabled,
 }) => {
   const renderInputByComponentType = (item) => {
     let element = null;
@@ -106,8 +107,8 @@ const Form = ({
           </div>
         ))}
       </div>
-      
-      <Button type="submit" className="mt-2 w-full">
+
+      <Button disabled={isBtnDisabled} type="submit" className="mt-2 w-full">
         {buttonText || "Submit"}
       </Button>
     </form>

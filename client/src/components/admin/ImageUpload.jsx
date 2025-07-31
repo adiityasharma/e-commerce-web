@@ -69,7 +69,7 @@ const ProductImageUpload = ({
 
   return (
     <div className="w-full max-w-md mx-auto px-5">
-      <Label className={`text-lg font-semibold mb-2 block`}>Upload Image</Label>
+      <Label className={`text-sm font-semibold mb-2 block`}>Upload Image</Label>
       <div
         onDragOver={handleDragOver}
         onDrop={handleDrop}

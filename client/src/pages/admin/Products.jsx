@@ -11,6 +11,7 @@ import {
 import { addProductFormElements } from "@/config/formControl";
 import {
   addNewProduct,
+  deleteProduct,
   editProduct,
   fetchAllProducts,
 } from "@/features/admin/productSlice/productSlice";
@@ -56,7 +57,7 @@ const AdminProducts = () => {
           setImageFile(null);
           setOpenCreateProductsDialog(false);
           setFormData(initialFormData);
-          toast.success("Product Updated successfully");
+          toast.success("Product Updated.");
         }
       });
     } else {
@@ -71,15 +72,30 @@ const AdminProducts = () => {
           setImageFile(null);
           setOpenCreateProductsDialog(false);
           setFormData(initialFormData);
-          toast.success("Product added successfully");
+          toast.success("Product added.");
         }
       });
     }
   };
 
+  const isFormValid = () => {
+    return Object.keys(formData)
+      .map((key) => formData[key] !== "")
+      .every((item) => item);
+  };
+
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
+
+  const handleDeleteProduct = (productId) => {
+    dispatch(deleteProduct(productId)).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchAllProducts());
+        toast.success("Product Deleted.");
+      }
+    });
+  };
 
   return (
     <>
@@ -97,6 +113,7 @@ const AdminProducts = () => {
                 setCurrentEditedId={setCurrentEditedId}
                 key={index}
                 product={productItem}
+                handleDeleteProduct={handleDeleteProduct}
               />
             ))
           : null}
@@ -131,6 +148,7 @@ const AdminProducts = () => {
               buttonText={currentEditedId !== null ? "Update" : "Add"}
               onSubmit={onSubmit}
               formControls={addProductFormElements}
+              isBtnDisabled={!isFormValid()}
             />
           </div>
         </SheetContent>
