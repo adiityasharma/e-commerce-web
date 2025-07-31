@@ -8,6 +8,7 @@ import { LoaderOne } from "../ui/loader";
 
 const ProductImageUpload = ({
   imageFile,
+  isEditMode,
   setImageFile,
   uploadedImageUrl,
   imageLoadingState,
@@ -68,7 +69,7 @@ const ProductImageUpload = ({
 
   return (
     <div className="w-full max-w-md mx-auto px-5">
-      <Label className="text-lg font-semibold mb-2 block">Upload Image</Label>
+      <Label className={`text-lg font-semibold mb-2 block`}>Upload Image</Label>
       <div
         onDragOver={handleDragOver}
         onDrop={handleDrop}
@@ -80,14 +81,17 @@ const ProductImageUpload = ({
           className="hidden"
           ref={inputRef}
           onChange={handleImageFileChange}
+          disabled={isEditMode}
         />
 
         {!imageFile ? (
           <Label
             htmlFor="image-upload"
-            className="flex flex-col items-center justify-center h-32 cursor-pointer  hover:bg-gray-50"
+            className={`flex flex-col items-center justify-center h-32 hover:bg-gray-50 ${
+              isEditMode ? "cursor-not-allowed text-gray-400" : "cursor-pointer"
+            }`}
           >
-            <UploadCloud className="w-8 h-8 text-muted-foreground mb-2 " />
+            <UploadCloud className="w-8 h-8  mb-2 " />
             <span>Drag and Drop or Click to upload image</span>
           </Label>
         ) : imageLoadingState ? (

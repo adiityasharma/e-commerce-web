@@ -1,4 +1,5 @@
 import ProductImageUpload from "@/components/admin/ImageUpload";
+import AdminProductTile from "@/components/admin/productTile";
 import Form from "@/components/common/Form";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +11,7 @@ import {
 import { addProductFormElements } from "@/config/formControl";
 import {
   addNewProduct,
+  editProduct,
   fetchAllProducts,
 } from "@/features/admin/productSlice/productSlice";
 import React, { useEffect, useState } from "react";
@@ -35,25 +37,44 @@ const AdminProducts = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [imageLoadingState, setImageLoadingState] = useState(false);
   const { productList } = useSelector((state) => state.adminProducts);
+  const [currentEditedId, setCurrentEditedId] = useState(null);
 
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      addNewProduct({
-        ...formData,
-        image: uploadedImageUrl,
-      })
-    ).then((data) => {
-      if (data?.payload?.success) {
-        fetchAllProducts();
-        setImageFile(null);
-        setOpenCreateProductsDialog(false);
-        setFormData(initialFormData);
-        toast.success("Product added successfully");
-      }
-    });
+
+    if (currentEditedId !== null) {
+      dispatch(
+        editProduct({
+          id: currentEditedId,
+          formData,
+        })
+      ).then((data) => {
+        if (data?.payload?.success) {
+          dispatch(fetchAllProducts());
+          setImageFile(null);
+          setOpenCreateProductsDialog(false);
+          setFormData(initialFormData);
+          toast.success("Product Updated successfully");
+        }
+      });
+    } else {
+      dispatch(
+        addNewProduct({
+          ...formData,
+          image: uploadedImageUrl,
+        })
+      ).then((data) => {
+        if (data?.payload?.success) {
+          dispatch(fetchAllProducts());
+          setImageFile(null);
+          setOpenCreateProductsDialog(false);
+          setFormData(initialFormData);
+          toast.success("Product added successfully");
+        }
+      });
+    }
   };
 
   useEffect(() => {
@@ -67,14 +88,32 @@ const AdminProducts = () => {
           Add New Product
         </Button>
       </div>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 "></div>
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 ">
+        {productList && productList.length > 0
+          ? productList.map((productItem, index) => (
+              <AdminProductTile
+                setFormData={setFormData}
+                setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+                setCurrentEditedId={setCurrentEditedId}
+                key={index}
+                product={productItem}
+              />
+            ))
+          : null}
+      </div>
       <Sheet
         open={openCreateProductsDialog}
-        onOpenChange={() => setOpenCreateProductsDialog(false)}
+        onOpenChange={() => {
+          setOpenCreateProductsDialog(false);
+          setFormData(initialFormData);
+          setCurrentEditedId(null);
+        }}
       >
         <SheetContent side="right" className="overflow-auto">
           <SheetHeader>
-            <SheetTitle>Add New Product</SheetTitle>
+            <SheetTitle>
+              {currentEditedId !== null ? "Edit Product" : "Add New Product"}
+            </SheetTitle>
           </SheetHeader>
           <ProductImageUpload
             imageFile={imageFile}
@@ -83,12 +122,13 @@ const AdminProducts = () => {
             setUploadedImageUrl={setUploadedImageUrl}
             setImageLoadingState={setImageLoadingState}
             imageLoadingState={imageLoadingState}
+            isEditMode={currentEditedId !== null}
           />
           <div className="py-6 px-5">
             <Form
               formData={formData}
               setFormData={setFormData}
-              buttonText="Add"
+              buttonText={currentEditedId !== null ? "Update" : "Add"}
               onSubmit={onSubmit}
               formControls={addProductFormElements}
             />
