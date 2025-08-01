@@ -11,7 +11,7 @@ const ShoppingProductTile = ({product}) => {
           <img
             src={product?.image}
             alt={product.title}
-            className="w-full h-[300px] object-cover rounded-t-lg "
+            className="w-full h-[300px] lg:h-[250px] md:h-[180px] object-cover rounded-t-lg "
           />
           {product?.salePrice > 0 ? (
             <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-700">
@@ -20,10 +20,10 @@ const ShoppingProductTile = ({product}) => {
           ) : null}
         </div>
         <CardContent className="p-4">
-          <h2 className="text-xl font-semibold mb-2 capitalize">
+          <h2 className="text-lg truncate font-semibold mb-2 capitalize">
             {product?.title}
           </h2>
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex justify-between items-center mb-1">
             <span className="text-sm text-muted-foreground capitalize">
               {product?.category}
             </span>
@@ -31,10 +31,10 @@ const ShoppingProductTile = ({product}) => {
               {product?.brand}
             </span>
           </div>
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex gap-1 items-center">
             <span
               className={` ${
-                product?.salePrice > 0 ? "line-through" : ""
+                product?.salePrice > 0 ? "line-through text-sm" : ""
               } text-lg font-semibold text-gray-400`}
             >
               ${product?.price}
