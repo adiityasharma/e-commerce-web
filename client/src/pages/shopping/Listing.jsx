@@ -1,4 +1,5 @@
 import ProductFliter from "@/components/shopping/ProductFliter";
+import ShoppingProductTile from "@/components/shopping/ProductTile";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenuContent,
@@ -6,14 +7,24 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config/formControl";
+import { fetchAllFilterdProducts } from "@/features/shop/productSlice";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { ArrowUpDown } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const ShoppingListing = () => {
+
+  const dispatch = useDispatch();
+  const {productList} = useSelector(state=> state.shopProducts)
+
+  useEffect(() => {
+    dispatch(fetchAllFilterdProducts());
+  }, [dispatch])
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6  ">
       <ProductFliter />
@@ -45,6 +56,14 @@ const ShoppingListing = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+          {
+            productList?.map((product) => (
+              <ShoppingProductTile key={product._id} product={product}/>
+            ))
+          }
         </div>
       </div>
     </div>

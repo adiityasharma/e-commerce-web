@@ -7,6 +7,7 @@ import cors from "cors";
 import dbConnect from "./config/db.js";
 import authRouter from "./routes/auth/auth.route.js";
 import adminProductRouter from "./routes/admin/products.route.js";
+import shopProductRouter from "./routes/shop/products.routes.js"
 
 dotenv.config()
 dbConnect();
@@ -35,6 +36,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/admin/products", adminProductRouter)
+app.use("/api/v1/shop/products", shopProductRouter)
 
 
 app.listen(PORT, () => {
