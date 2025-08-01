@@ -1,17 +1,28 @@
-import { House, Menu, ShoppingCart } from "lucide-react";
+import {
+  House,
+  LogOut,
+  Menu,
+  ShoppingCart,
+  Snowflake,
+  User,
+} from "lucide-react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shoppingViewHeaderMenuItems } from "@/config/formControl";
 import {
   DropdownMenu,
+  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { DropdownMenuContent } from "../ui/dropdown-menu";
+import { logoutUser } from "@/features/auth/authSlice";
+import { toast } from "sonner";
 
 const MenuItems = () => {
   return (
@@ -30,12 +41,17 @@ const MenuItems = () => {
 };
 
 const HeaderRightContent = () => {
+  const { user } = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { user } = useSelector(state => state.auth)
-  console.log(user)
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    toast.success("Logged out successfully");
+  };
 
   return (
-    <div className="flex lg:items-center lg:flex-row flex-col gap-4">
+    <div className="flex lg:items-center lg:flex-row gap-4">
       <Button variant="outline" size="icon">
         <ShoppingCart className="w-6 h-6" />
         <span className="sr-only">user cart</span>
@@ -45,15 +61,30 @@ const HeaderRightContent = () => {
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black">
             <AvatarFallback className="bg-black text-white font-semibold">
-              {/* {user?.username[0].toUpperCase()} */}
+              {user?.username[0].toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent side="right" className="w-56">
-          <DropdownMenuLabel></DropdownMenuLabel>
+        <DropdownMenuContent side="right" className="px-3 py-3 w-56">
+          <DropdownMenuLabel>Logged in as {user?.username}</DropdownMenuLabel>
+          <DropdownMenuSeparator className="h-2" />
+          <DropdownMenuItem
+            onClick={() => navigate("/shop/account")}
+            className="flex items-center border-t py-2 cursor-pointer hover:bg-gray-100 px-2 ease-in transition-all"
+          >
+            <User className="mr-2 w-4 h-4" />
+            Account
+          </DropdownMenuItem>
+          <DropdownMenuSeparator className="h-2" />
+          <DropdownMenuItem
+            onClick={handleLogout}
+            className="flex items-center border-t py-2 cursor-pointer hover:bg-gray-100 px-2 ease-in transition-all"
+          >
+            <LogOut className="mr-2 w-4 h-4" />
+            Logout
+          </DropdownMenuItem>
         </DropdownMenuContent>
-
       </DropdownMenu>
     </div>
   );
@@ -66,7 +97,7 @@ const ShoppingHeader = () => {
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Link to="/shop/home" className="flex items-center gap-2">
-          <House className="h-6 w-6" />
+          <Snowflake className="h-6 w-6" />
           <span className="font-semibold ">Ecommerce</span>
         </Link>
         <Sheet>
@@ -76,7 +107,8 @@ const ShoppingHeader = () => {
               <span className="sr-only">Toggle Header menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-full max-w-xs ">
+          <SheetContent side="right" className="w-full max-w-xs py-3 px-5  ">
+            <HeaderRightContent/>
             <MenuItems />
           </SheetContent>
         </Sheet>
@@ -85,11 +117,9 @@ const ShoppingHeader = () => {
           <MenuItems />
         </div>
 
-        {isAuthenticated ? (
-          <div>
-            <HeaderRightContent />
-          </div>
-        ) : null}
+        <div className="hidden lg:block">
+          <HeaderRightContent />
+        </div>
       </div>
     </header>
   );

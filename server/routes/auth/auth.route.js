@@ -11,13 +11,15 @@ router.post("/logout", logoutUser);
 
 router.get("/checkAuth", authenticateToken, (req, res) => {
   const user = req.user;
+  // console.log(user)
   res.status(200).json({
     success: true,
     message: "Authenticated User",
     user: {
       id: user.id,
       email: user.email,
-      role: user.role
+      role: user.role,
+      username: user.username
     }
   })
 })

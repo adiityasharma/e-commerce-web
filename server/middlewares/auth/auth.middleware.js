@@ -20,6 +20,7 @@ const authenticateToken = (req, res, next) => {
       return res.status(403).json({ success: false, error: message });
     }
     req.user = user
+    // console.log(user)
     next();
   })
 }
