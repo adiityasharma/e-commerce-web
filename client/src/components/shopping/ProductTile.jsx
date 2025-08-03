@@ -5,13 +5,18 @@ import { Button } from '../ui/button';
 
 const ShoppingProductTile = ({product, handleGetProductDetails}) => {
   return (
-    <Card className="w-full h-full pt-0 pb-3 max-w-sm mx-auto cursor-pointer">
-      <div onClick={()=>{handleGetProductDetails(product?._id)}}>
-        <div className="relative">
+    <Card className="w-full h-full pt-0 pb-3 max-w-sm mx-auto ">
+      <div>
+        <div
+          onClick={() => {
+            handleGetProductDetails(product?._id);
+          }}
+          className="relative"
+        >
           <img
             src={product?.image}
             alt={product.title}
-            className="w-full h-[300px] lg:h-[250px] md:h-[180px] object-cover rounded-t-lg "
+            className="w-full h-[300px] lg:h-[250px] md:h-[180px] object-cover rounded-t-lg cursor-pointer"
           />
           {product?.salePrice > 0 ? (
             <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-700">

@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import { Router } from "express";
 import { getFilteredProducts, getProductDetails } from "../../controllers/shop/shop.controller.js";
 
 

@@ -1,3 +1,4 @@
+import ProductDetails from "@/components/shopping/ProductDetails";
 import ProductFliter from "@/components/shopping/ProductFliter";
 import ShoppingProductTile from "@/components/shopping/ProductTile";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,10 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config/formControl";
-import { fetchAllFilterdProducts, fetchProductDetails } from "@/features/shop/productSlice";
+import {
+  fetchAllFilterdProducts,
+  fetchProductDetails,
+} from "@/features/shop/productSlice";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -25,6 +29,7 @@ const ShoppingListing = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [openDetailDialog, setOpenDetailDialog] = useState(false);
 
   const handleSort = (value) => {
     setSort(value);
@@ -79,14 +84,20 @@ const ShoppingListing = () => {
 
   useEffect(() => {
     if (filter !== null && sort !== null) {
-      dispatch(fetchAllFilterdProducts({ filterParams: filter, sortParams: sort }));
+      dispatch(
+        fetchAllFilterdProducts({ filterParams: filter, sortParams: sort })
+      );
     }
     dispatch(fetchAllFilterdProducts());
   }, [dispatch, sort, filter]);
 
   const handleGetProductDetails = (currentProductId) => {
     dispatch(fetchProductDetails(currentProductId));
-  }
+  };
+
+  useEffect(() => {
+    if (productDetails) setOpenDetailDialog(true);
+  }, [productDetails]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6  ">
@@ -134,6 +145,12 @@ const ShoppingListing = () => {
           ))}
         </div>
       </div>
+
+      <ProductDetails
+        open={openDetailDialog}
+        setOpen={setOpenDetailDialog}
+        productDetails={productDetails}
+      />
     </div>
   );
 };
