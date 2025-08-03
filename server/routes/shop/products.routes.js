@@ -1,10 +1,11 @@
 import express, { Router } from "express";
-import { getFilteredProducts } from "../../controllers/shop/shop.controller.js";
+import { getFilteredProducts, getProductDetails } from "../../controllers/shop/shop.controller.js";
 
 
 const router = Router();
 
 router.get("/get", getFilteredProducts);
+router.get("/get/:id", getProductDetails);
 
 
 

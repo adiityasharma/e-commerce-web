@@ -5,11 +5,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: false,
   productList: [],
+  productDetails: null,
+  error: null
 }
 
 export const fetchAllFilterdProducts = createAsyncThunk("fetchAllFilterdProducts",
-  async ({filterParams, sortParams}) => {
-    
+  async ({ filterParams, sortParams }) => {
+
     const query = new URLSearchParams({
       ...filterParams,
       sortBy: sortParams
@@ -20,6 +22,13 @@ export const fetchAllFilterdProducts = createAsyncThunk("fetchAllFilterdProducts
   }
 )
 
+export const fetchProductDetails = createAsyncThunk("fetchProductDetails", 
+  async (id) => {
+    const response = await axios.get(`http://localhost:3001/api/v1/shop/products/get/${id}`)
+    
+    return response.data;
+  }
+)
 
 const shoppingProductSlice = createSlice({
   name: "shoppingProducts",
@@ -38,8 +47,22 @@ const shoppingProductSlice = createSlice({
         state.isLoading = false;
         state.productList = []
       })
+      .addCase(fetchProductDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.productDetails = action.payload.data;
+      })
+      .addCase(fetchProductDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+    
   }
-}) 
+})
+
 
 
 export default shoppingProductSlice.reducer;

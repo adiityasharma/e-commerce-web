@@ -7,7 +7,7 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config/formControl";
-import { fetchAllFilterdProducts } from "@/features/shop/productSlice";
+import { fetchAllFilterdProducts, fetchProductDetails } from "@/features/shop/productSlice";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -19,7 +19,9 @@ import { useSearchParams } from "react-router-dom";
 
 const ShoppingListing = () => {
   const dispatch = useDispatch();
-  const { productList } = useSelector((state) => state.shopProducts);
+  const { productList, productDetails } = useSelector(
+    (state) => state.shopProducts
+  );
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -82,6 +84,10 @@ const ShoppingListing = () => {
     dispatch(fetchAllFilterdProducts());
   }, [dispatch, sort, filter]);
 
+  const handleGetProductDetails = (currentProductId) => {
+    dispatch(fetchProductDetails(currentProductId));
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6  ">
       <ProductFliter filters={filter} handleFilters={handleFilters} />
@@ -120,7 +126,11 @@ const ShoppingListing = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
           {productList?.map((product) => (
-            <ShoppingProductTile key={product._id} product={product} />
+            <ShoppingProductTile
+              key={product._id}
+              handleGetProductDetails={handleGetProductDetails}
+              product={product}
+            />
           ))}
         </div>
       </div>

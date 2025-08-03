@@ -55,6 +55,21 @@ const getFilteredProducts = async (req, res) => {
 
 const getProductDetails = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Could not found the product."
+      })
+    }
+
+    res.status(200).json({
+      success: true,
+      data: product
+    })
 
   } catch (error) {
     console.log(error)
@@ -64,7 +79,7 @@ const getProductDetails = async (req, res) => {
     })
   }
 }
-}
 
 
-export { getFilteredProducts }
+
+export { getFilteredProducts, getProductDetails }
