@@ -6,7 +6,7 @@ import {
   Snowflake,
   User,
 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
@@ -23,6 +23,7 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import { DropdownMenuContent } from "../ui/dropdown-menu";
 import { logoutUser } from "@/features/auth/authSlice";
 import { toast } from "sonner";
+import CartWrapper from "./cartWrapper";
 
 const MenuItems = () => {
   return (
@@ -42,6 +43,7 @@ const MenuItems = () => {
 
 const HeaderRightContent = () => {
   const { user } = useSelector((state) => state.auth.user);
+  const [openCartSheet, setOpenCartSheet] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,10 +54,13 @@ const HeaderRightContent = () => {
 
   return (
     <div className="flex lg:items-center lg:flex-row gap-4">
-      <Button variant="outline" size="icon">
-        <ShoppingCart className="w-6 h-6" />
-        <span className="sr-only">user cart</span>
-      </Button>
+      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+        <Button variant="outline" size="icon">
+          <ShoppingCart className="w-6 h-6" />
+          <span className="sr-only">user cart</span>
+        </Button>
+        <CartWrapper />
+      </Sheet>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -108,7 +113,7 @@ const ShoppingHeader = () => {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full max-w-xs py-3 px-5  ">
-            <HeaderRightContent/>
+            <HeaderRightContent />
             <MenuItems />
           </SheetContent>
         </Sheet>
