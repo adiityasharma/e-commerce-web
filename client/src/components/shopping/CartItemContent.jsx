@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCartItem } from "@/features/shop/cartSlice";
+import { deleteCartItem, updateCartQuantity } from "@/features/shop/cartSlice";
 import { toast } from "sonner";
 
 const CartItemContent = ({ cartItem }) => {
@@ -13,11 +13,24 @@ const CartItemContent = ({ cartItem }) => {
     dispatch(deleteCartItem({ userId: user?.user?.id, productId })).then(
       (data) => {
         if (data?.payload?.succuss) {
-          toast.success("Item Removed.")
+          toast.success("Item Removed.");
         } else {
-          toast.error("Failed to remove item.")
+          toast.error("Failed to remove item.");
         }
       }
+    );
+  };
+
+  const handleUpdateQuantity = (getCartItem, typeOfAction) => {
+    dispatch(
+      updateCartQuantity({
+        userId: user?.user?.id,
+        productId: getCartItem?.productId,
+        quantity:
+          typeOfAction === "plus"
+            ? getCartItem?.quantity + 1
+            : getCartItem?.quantity - 1,
+      })
     );
   };
 
@@ -32,6 +45,7 @@ const CartItemContent = ({ cartItem }) => {
         <h3 className="font-semibold ">{cartItem?.title}</h3>
         <div className="flex items-center mt-1 gap-2">
           <Button
+            onClick={() => handleUpdateQuantity(cartItem, "minus")}
             variant="outline"
             size="icon"
             className="h-8 w-8 rounded-full"
@@ -41,6 +55,7 @@ const CartItemContent = ({ cartItem }) => {
           </Button>
           <span className="font-bold">{cartItem?.quantity}</span>
           <Button
+            onClick={() => handleUpdateQuantity(cartItem, "plus")}
             variant="outline"
             size="icon"
             className="h-8 w-8 rounded-full"
