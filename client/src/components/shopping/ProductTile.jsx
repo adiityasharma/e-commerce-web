@@ -1,9 +1,13 @@
-import React from 'react'
-import { Card, CardContent, CardFooter } from '../ui/card'
-import { Badge } from '../ui/badge'
-import { Button } from '../ui/button';
+import React from "react";
+import { Card, CardContent, CardFooter } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 
-const ShoppingProductTile = ({product, handleGetProductDetails}) => {
+const ShoppingProductTile = ({
+  product,
+  handleGetProductDetails,
+  handleAddToCart,
+}) => {
   return (
     <Card className="w-full h-full pt-0 pb-3 max-w-sm mx-auto ">
       <div>
@@ -53,11 +57,16 @@ const ShoppingProductTile = ({product, handleGetProductDetails}) => {
         </CardContent>
 
         <CardFooter>
-          <Button className="w-full">Add to Cart</Button>
+          <Button
+            onClick={() => handleAddToCart(product?._id)}
+            className="w-full cursor-pointer"
+          >
+            Add to Cart
+          </Button>
         </CardFooter>
       </div>
     </Card>
   );
-}
+};
 
-export default ShoppingProductTile
+export default ShoppingProductTile;

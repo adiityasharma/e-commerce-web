@@ -8,6 +8,7 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config/formControl";
+import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
 import {
   fetchAllFilterdProducts,
   fetchProductDetails,
@@ -20,12 +21,14 @@ import { ArrowUpDown } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const ShoppingListing = () => {
   const dispatch = useDispatch();
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
   );
+  const { user } = useSelector((state) => state.auth);
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -99,6 +102,18 @@ const ShoppingListing = () => {
     if (productDetails) setOpenDetailDialog(true);
   }, [productDetails]);
 
+  const handleAddToCart = (productId) => {
+    dispatch(addToCart({ userId: user?.user?.id, productId, quantity: 1 })).then(
+      (data) => {
+        if (data?.payload?.success) {
+          dispatch(fetchCartItems(user?.user?.id));
+          toast.success("Added to cart")
+        }
+      }
+    );
+  };
+
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6  ">
       <ProductFliter filters={filter} handleFilters={handleFilters} />
@@ -141,6 +156,7 @@ const ShoppingListing = () => {
               key={product._id}
               handleGetProductDetails={handleGetProductDetails}
               product={product}
+              handleAddToCart={handleAddToCart}
             />
           ))}
         </div>

@@ -6,7 +6,7 @@ import {
   Snowflake,
   User,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
@@ -24,6 +24,7 @@ import { DropdownMenuContent } from "../ui/dropdown-menu";
 import { logoutUser } from "@/features/auth/authSlice";
 import { toast } from "sonner";
 import CartWrapper from "./cartWrapper";
+import { fetchCartItems } from "@/features/shop/cartSlice";
 
 const MenuItems = () => {
   return (
@@ -43,6 +44,7 @@ const MenuItems = () => {
 
 const HeaderRightContent = () => {
   const { user } = useSelector((state) => state.auth.user);
+  const { cartItems } = useSelector((state) => state.shopCart);
   const [openCartSheet, setOpenCartSheet] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,14 +54,26 @@ const HeaderRightContent = () => {
     toast.success("Logged out successfully");
   };
 
+  useEffect(() => {
+    dispatch(fetchCartItems(user?.id));
+  }, [dispatch]);
+
   return (
     <div className="flex lg:items-center lg:flex-row gap-4">
       <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
-        <Button variant="outline" size="icon">
+        <Button
+          onClick={() => setOpenCartSheet(true)}
+          variant="outline"
+          size="icon"
+        >
           <ShoppingCart className="w-6 h-6" />
           <span className="sr-only">user cart</span>
         </Button>
-        <CartWrapper />
+        <CartWrapper
+          cartItem={
+            cartItems && cartItems.items && cartItems.items 
+          }
+        />
       </Sheet>
 
       <DropdownMenu>

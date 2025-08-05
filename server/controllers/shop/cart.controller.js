@@ -41,7 +41,7 @@ const addToCart = async (req, res) => {
     await cart.save();
 
     res.status(200).json({
-      success: false,
+      success: true,
       data: cart
     })
 
@@ -175,7 +175,7 @@ const updateCartItemQty = async (req, res) => {
 }
 
 
-const deleteCartItem = async () => {
+const deleteCartItem = async (req, res) => {
   try {
 
     const { userId, productId } = req.params;
@@ -217,7 +217,13 @@ const deleteCartItem = async () => {
       quantity: item.quantity,
     }))
 
-
+    res.status(200).json({
+      success: true,
+      data: {
+        ...cart._doc,
+        items: populateCartItems,
+      },
+    });
 
   } catch (error) {
     console.log(error);
