@@ -2,6 +2,7 @@ import React from "react";
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { Button } from "../ui/button";
 import CartItemContent from "./CartItemContent";
+import { Separator } from "../ui/separator";
 
 const CartWrapper = ({ cartItem }) => {
   const totalCartAmount =
@@ -17,9 +18,8 @@ const CartWrapper = ({ cartItem }) => {
         )
       : 0;
 
-
   return (
-    <SheetContent className="sm:max-w-md px-5">
+    <SheetContent className="sm:max-w-md px-5 overflow-auto pb-5">
       <SheetHeader className="px-0">
         <SheetTitle>Your Cart</SheetTitle>
       </SheetHeader>
@@ -30,7 +30,8 @@ const CartWrapper = ({ cartItem }) => {
             ))
           : null}
       </div>
-      <div className="mt-3 space-y-4">
+      <Separator />
+      <div className="mt-0 space-y-4">
         <div className="flex justify-between">
           <span className="font-bold">Total</span>
           <span className="font-bold">${totalCartAmount.toFixed(2)}</span>

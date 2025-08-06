@@ -60,7 +60,7 @@ const HeaderRightContent = () => {
 
   return (
     <div className="flex lg:items-center lg:flex-row gap-4">
-      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)} >
         <Button
           onClick={() => setOpenCartSheet(true)}
           variant="outline"

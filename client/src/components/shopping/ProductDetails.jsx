@@ -1,13 +1,37 @@
-import React from "react";
+import React, { use } from "react";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { StarIcon } from "lucide-react";
 import { Input } from "../ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
+import { toast } from "sonner";
+import { setProductDetails } from "@/features/shop/productSlice";
 
 const ProductDetails = ({ open, setOpen, productDetails }) => {
+
+  const dispatch = useDispatch()
+  const { user } = useSelector(state => state.auth)
+
+  const handleAddToCart = (productId) => {
+    dispatch(
+      addToCart({ userId: user?.user?.id, productId, quantity: 1 })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchCartItems(user?.user?.id));
+        toast.success("Added to cart");
+      }
+    });
+  };
+
+  const handleDialogClose = () => {
+    setOpen(false)
+    dispatch(setProductDetails())
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogContent className="grid sm:grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw] ">
         <div className="relative overflow-hidden rounded-lg">
           <img
@@ -57,7 +81,12 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
           </div>
 
           <div className="w-fit mt-5">
-            <Button className="cursor-pointer">Add to Cart</Button>
+            <Button
+              onClick={() => handleAddToCart(productDetails?._id)}
+              className="cursor-pointer"
+            >
+              Add to Cart
+            </Button>
           </div>
 
           <div className="max-h-[300px] overflow-auto mt-5">
@@ -86,7 +115,7 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
             </div>
           </div>
           <div className="flex gap-2 mt-6">
-            <Input placeholder="Write a review..." /> 
+            <Input placeholder="Write a review..." />
             <Button>Submit</Button>
           </div>
         </div>

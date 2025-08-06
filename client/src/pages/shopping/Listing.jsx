@@ -103,16 +103,15 @@ const ShoppingListing = () => {
   }, [productDetails]);
 
   const handleAddToCart = (productId) => {
-    dispatch(addToCart({ userId: user?.user?.id, productId, quantity: 1 })).then(
-      (data) => {
-        if (data?.payload?.success) {
-          dispatch(fetchCartItems(user?.user?.id));
-          toast.success("Added to cart")
-        }
+    dispatch(
+      addToCart({ userId: user?.user?.id, productId, quantity: 1 })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchCartItems(user?.user?.id));
+        toast.success("Added to cart");
       }
-    );
+    });
   };
-
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6  ">
