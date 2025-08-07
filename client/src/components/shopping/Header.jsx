@@ -25,18 +25,30 @@ import { logoutUser } from "@/features/auth/authSlice";
 import { toast } from "sonner";
 import CartWrapper from "./cartWrapper";
 import { fetchCartItems } from "@/features/shop/cartSlice";
+import { Label } from "../ui/label";
 
 const MenuItems = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (currentMenuItem) => {
+    sessionStorage.removeItem("filters");
+    const currentFilter =
+      currentMenuItem.id !== "home" ? { category: [currentMenuItem.id] } : null;
+
+    sessionStorage.setItem("filters", JSON.stringify(currentFilter));
+    navigate(currentMenuItem.path);
+  };
+
   return (
     <nav className="flex-col flex mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
       {shoppingViewHeaderMenuItems.map((menuItem) => (
-        <Link
+        <Label
+          onClick={() => handleNavigate(menuItem)}
           key={menuItem.id}
-          to={menuItem.path}
-          className="text-sm font-semibold"
+          className=" cursor-pointer text-sm font-semibold"
         >
           {menuItem.label}
-        </Link>
+        </Label>
       ))}
     </nav>
   );
@@ -60,7 +72,7 @@ const HeaderRightContent = () => {
 
   return (
     <div className="flex lg:items-center lg:flex-row gap-4">
-      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)} >
+      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
         <Button
           onClick={() => setOpenCartSheet(true)}
           variant="outline"
@@ -70,9 +82,7 @@ const HeaderRightContent = () => {
           <span className="sr-only">user cart</span>
         </Button>
         <CartWrapper
-          cartItem={
-            cartItems && cartItems.items && cartItems.items 
-          }
+          cartItem={cartItems && cartItems.items && cartItems.items}
         />
       </Sheet>
 
