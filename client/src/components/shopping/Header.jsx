@@ -82,6 +82,7 @@ const HeaderRightContent = () => {
           <span className="sr-only">user cart</span>
         </Button>
         <CartWrapper
+          setOpenCartSheet={setOpenCartSheet}
           cartItem={cartItems && cartItems.items && cartItems.items}
         />
       </Sheet>

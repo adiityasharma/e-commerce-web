@@ -29,7 +29,8 @@ const Address = () => {
 
   const handleManageAddress = (e) => {
     e.preventDefault();
-    if (addressList.length >= 3) {
+    if (addressList.length >= 3 && currentEditedId === null) {
+      setFormData(initialAddressFormData)
       toast.warning("Only 3 Address can be added.")
       return;
     }
@@ -98,7 +99,7 @@ const Address = () => {
 
   return (
     <Card>
-      <div className="px-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+      <div className="px-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
         {addressList && addressList.length > 0
           ? addressList.map((address, index) => (
               <AddressCard
