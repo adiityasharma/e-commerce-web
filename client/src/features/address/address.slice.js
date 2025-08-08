@@ -16,6 +16,7 @@ export const addNewAddress = createAsyncThunk("addNewAddress",
     return response.data;
   }
 )
+
 export const fetchAllAddress = createAsyncThunk("fetchAllAddress",
   async (userId) => {
     const response = await axios.get(`http://localhost:3001/api/v1/shop/address/get/${userId}`);
@@ -23,13 +24,26 @@ export const fetchAllAddress = createAsyncThunk("fetchAllAddress",
     return response.data;
   }
 )
-export const deleteAddress = createAsyncThunk("deleteAddress",
-  async ({ userId, addressId }) => {
-    const response = await axios.post(`http://localhost:3001/api/v1/shop/address/delete/${userId}/${addressId}`);
+export const deleteAddress = createAsyncThunk(
+  'deleteAddress',
+  async ({ userId, addressId }, { rejectWithValue }) => {
+    try {
 
-    return response.data;
+      const response = await axios.delete(
+        `http://localhost:3001/api/v1/shop/address/delete/${userId}/${addressId}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Delete Address Error:', error);
+
+      return rejectWithValue(
+        error.response?.data || 'Something went wrong while deleting the address'
+      );
+    }
   }
-)
+);
+
+
 export const editAddress = createAsyncThunk("editAddress",
   async ({ userId, addressId, formData }) => {
     const response = await axios.put(`http://localhost:3001/api/v1/shop/address/update/${userId}/${addressId}`, formData);
@@ -50,12 +64,10 @@ const addressSlice = createSlice({
       })
       .addCase(addNewAddress.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.addressList = action.payload.data;
       })
       .addCase(addNewAddress.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload.message
-        state.addressList = []
       })
       .addCase(fetchAllAddress.pending, (state) => {
         state.isLoading = true;
@@ -93,7 +105,7 @@ const addressSlice = createSlice({
       })
       .addCase(deleteAddress.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload.message
+        state.error = action.payload
         state.addressList = []
       })
 

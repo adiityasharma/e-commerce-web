@@ -22,6 +22,8 @@ const addAddress = async (req, res) => {
       notes
     })
 
+    await newAddress.save()
+
     res.status(201).json({
       success: true,
       data: newAddress
@@ -118,6 +120,7 @@ const deleteAddress = async (req, res) => {
         message: "Address not found."
       })
     }
+
 
     res.status(200).json({
       success: true,

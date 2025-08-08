@@ -7,8 +7,8 @@ const router = Router();
 
 router.get("/get/:userId", fetchAllAddress)
 router.post("/add", addAddress)
-router.post("/delete/:userId/:addressId", deleteAddress)
-router.post("/update/:userId/:addressId", deleteAddress)
+router.delete("/delete/:userId/:addressId", deleteAddress)
+router.put("/update/:userId/:addressId", editAddress)
 
 
 export default router;
