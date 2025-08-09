@@ -6,6 +6,7 @@ import CartItemContent from "@/components/shopping/CartItemContent";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { createNewOrder } from "@/features/shop/orderSlice";
+import { toast } from "sonner";
 
 const ShoppingCheckout = () => {
   const { cartItems } = useSelector((state) => state.shopCart);
@@ -30,6 +31,11 @@ const ShoppingCheckout = () => {
       : 0;
 
   const handleInitiatePaypalPayment = () => {
+    if (currentSelectedAddress === null) {
+      toast.info("Select address to proceed");
+      return;
+    }
+
     const orderData = {
       userId: user?.user?.id,
       cartId: cartItems?._id,
