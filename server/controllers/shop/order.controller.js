@@ -1,10 +1,12 @@
 import paypal from "../../config/paypal.js"
 import { Order } from "../../models/order.model.js";
+import { Cart } from "../../models/cart.js";
 
 
 
 
 const createOrder = async (req, res) => {
+
   try {
     const {
       userId,
@@ -13,12 +15,26 @@ const createOrder = async (req, res) => {
       orderStatus,
       paymentMethod,
       paymentStatus,
-      totalAmount,
       orderDate,
       orderUpdateDate,
       paymentId,
-      payerId
+      payerId,
+      cartId
     } = req.body;
+
+
+    const formattedItems = cartItems?.map(item => ({
+      name: item.title,
+      sku: String(item.productId || ""),
+      price: Number(item.price).toFixed(2),
+      currency: "USD",
+      quantity: Number(item.quantity)
+    }))
+
+    const total = formattedItems
+      .reduce((sum, item) => sum + Number(item.price) * item.quantity, 0)
+      .toFixed(2);
+
 
     const create_payment_json = {
       intent: "sale",
@@ -26,31 +42,28 @@ const createOrder = async (req, res) => {
         payment_method: "paypal"
       },
       redirect_urls: {
-        return_url: "http://localhost:3001/shop/paypal-return",
-        cancel_url: "http://localhost:3001/shop/paypal-cancel"
+        return_url: "http://localhost:5173/shop/paypal-return",
+        cancel_url: "http://localhost:5173/shop/paypal-cancel"
       },
       transactions: [
         {
           item_list: {
-            items: cartItems.map(item => ({
-              name: item.title,
-              sku: item.productId,
-              price: item.price.toFixed(2),
-              quantity: item.quantity
-            }))
+            items: formattedItems
           },
           amount: {
             currency: "USD",
-            total: totalAmount.toFixed(2)
+            total: total
           },
           description: "description"
         }
       ]
     }
 
+
     paypal.payment.create(create_payment_json, async (error, paymentInfo) => {
       if (error) {
-        console.log(error);
+        console.log("paypal validation error", JSON.stringify(error.response, null, 2));
+
         return res.status(500).json({
           success: false,
           message: error.message
@@ -59,12 +72,13 @@ const createOrder = async (req, res) => {
       else {
         const newlyCreatedOrder = new Order({
           userId,
+          cartId,
           cartItems,
           addressInfo,
           orderStatus,
           paymentMethod,
           paymentStatus,
-          totalAmount,
+          totalAmount: total,
           orderDate,
           orderUpdateDate,
           paymentId,
@@ -82,9 +96,9 @@ const createOrder = async (req, res) => {
         })
       }
     })
-    
+
   } catch (error) {
-    console.log(error);
+    console.log("while creating order error:", error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -95,9 +109,38 @@ const createOrder = async (req, res) => {
 
 const capturePayment = async (req, res) => {
   try {
+    const { paymentId, payerId, orderId } = req.body;
+
+    let order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order can not be found"
+      })
+    }
+
+    order.paymentStatus = "paid";
+    order.orderStatus = "confirmed";
+    order.paymentId = paymentId;
+    order.payerId = payerId
+
+    const cartId = order.cartId;
+
+    console.log(cartId)
+
+    await Cart.findByIdAndDelete(cartId)
+
+    await order.save()
+
+    res.status(200).json({
+      success: true,
+      message: "Order Confirmed",
+      data: order
+    })
 
   } catch (error) {
-    console.log(error);
+    console.log("while capturing payment", error);
     res.status(500).json({
       success: false,
       message: error.message

@@ -20,6 +20,8 @@ import CheckAuth from "./components/common/CheckAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./features/auth/authSlice";
 import { LoaderOne } from "@/components/ui/loader";
+import PaypalReturn from "./pages/shopping/PaypalReturn";
+import PaymentSuccess from "./pages/shopping/PaymentSuccess";
 
 function App() {
 
@@ -79,6 +81,8 @@ function App() {
           <Route path="account" element={<ShoppingAccount />} />
           <Route path="listing" element={<ShoppingListing />} />
           <Route path="checkout" element={<ShoppingCheckout />} />
+          <Route path="paypal-return" element={<PaypalReturn/>} />
+          <Route path="payment-success" element={<PaymentSuccess/>} />
         </Route>
 
         <Route path="/unAuthorized" element={<UnAuthorized />}></Route>

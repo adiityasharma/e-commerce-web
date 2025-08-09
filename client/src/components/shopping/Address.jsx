@@ -20,7 +20,7 @@ const initialAddressFormData = {
   notes: "",
 };
 
-const Address = () => {
+const Address = ({ setCurrentSelectedAddress }) => {
   const [formData, setFormData] = useState(initialAddressFormData);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -30,8 +30,8 @@ const Address = () => {
   const handleManageAddress = (e) => {
     e.preventDefault();
     if (addressList.length >= 3 && currentEditedId === null) {
-      setFormData(initialAddressFormData)
-      toast.warning("Only 3 Address can be added.")
+      setFormData(initialAddressFormData);
+      toast.warning("Only 3 Address can be added.");
       return;
     }
 
@@ -107,6 +107,7 @@ const Address = () => {
                 handleDeleteAddress={handleDeleteAddress}
                 addressInfo={address}
                 handleEditAddress={handleEditAddress}
+                setCurrentSelectedAddress={setCurrentSelectedAddress}
               />
             ))
           : null}

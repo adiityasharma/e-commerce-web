@@ -4,6 +4,7 @@ import mongoose, { model, Schema } from "mongoose"
 
 const orderSchema = new Schema({
   userId: String,
+  cartId: String,
   cartItems: [
     {
       productId: String,
@@ -19,6 +20,7 @@ const orderSchema = new Schema({
     address: String,
     city: String,
     pincode: String,
+    phone: String,
     notes: String
   },
   orderStatus: String,
