@@ -8,13 +8,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
 import { toast } from "sonner";
 import { setProductDetails } from "@/features/shop/productSlice";
+import { Badge } from "../ui/badge";
 
 const ProductDetails = ({ open, setOpen, productDetails }) => {
 
   const dispatch = useDispatch()
   const { user } = useSelector(state => state.auth)
+  const {cartItems} = useSelector(state=> state.shopCart)
 
-  const handleAddToCart = (productId) => {
+  const handleAddToCart = (productId, totalStock) => {
+    let getCartItem = cartItems.items || [];
+
+    if (getCartItem.length) {
+      const indexOfCurrentItem = getCartItem.findIndex(
+        (item) => item.productId === productId
+      );
+      if (indexOfCurrentItem > -1) {
+        const getQuantity = getCartItem[indexOfCurrentItem]?.quantity;
+        if (getQuantity + 1 > totalStock) {
+          toast.info(`Only ${totalStock} can be added for this item.`);
+          return;
+        }
+      }
+    }
+
     dispatch(
       addToCart({ userId: user?.user?.id, productId, quantity: 1 })
     ).then((data) => {
@@ -41,6 +58,24 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
             height={600}
             className="aspect-square w-full object-cover rounded-lg"
           />
+
+          {productDetails?.totalStock <= 0 ? (
+            <Badge className="absolute top-2 right-2 bg-red-500 ">
+              Out of Stock
+            </Badge>
+          ) : productDetails?.totalStock < 10 ? (
+            <Badge className="absolute top-2 right-2 bg-red-500 ">
+              Only {productDetails?.totalStock} items left
+            </Badge>
+          ) : (
+            <Badge className="absolute top-2 right-2 bg-green-500 ">
+              {productDetails?.totalStock} Stocks Available
+            </Badge>
+          )}
+
+          {productDetails?.salePrice > 0 ? (
+            <Badge className="absolute top-2 left-2 bg-red-500 ">Sale</Badge>
+          ) : null}
         </div>
         <div className="flex-col flex gap-2">
           <div className="h-auto">
@@ -82,10 +117,12 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
 
           <div className="w-fit mt-5">
             <Button
-              onClick={() => handleAddToCart(productDetails?._id)}
-              className="cursor-pointer"
+              onClick={() => handleAddToCart(productDetails?._id, productDetails?.totalStock)}
+              className={`cursor-pointer ${
+                productDetails?.totalStock <= 0 ? "opacity-50" : ""
+              } `}
             >
-              Add to Cart
+              {productDetails?.totalStock <= 0 ? "Out of Stcok" : "Add to Cart"}
             </Button>
           </div>
 

@@ -1,7 +1,7 @@
 import paypal from "../../config/paypal.js"
 import { Order } from "../../models/order.model.js";
 import { Cart } from "../../models/cart.js";
-
+import { Product } from "../../models/product.model.js"
 
 
 
@@ -124,6 +124,21 @@ const capturePayment = async (req, res) => {
     order.orderStatus = "confirmed";
     order.paymentId = paymentId;
     order.payerId = payerId
+
+    for (let item of order.cartItems) {
+      let product = await Product.findById(item.productId);
+
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: `Not enough stock of this product ${product.title}`
+        })
+      }
+
+      product.totalStock -= item.quantity;
+      await product.save()
+    }
+
 
     const cartId = order.cartId;
 

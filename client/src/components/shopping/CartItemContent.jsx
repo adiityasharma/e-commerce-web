@@ -8,28 +8,52 @@ import { toast } from "sonner";
 const CartItemContent = ({ cartItem }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.shopCart);
+  const { productList } = useSelector((state) => state.shopProducts);
 
   const handleCartItemDelete = (productId) => {
     dispatch(deleteCartItem({ userId: user?.user?.id, productId })).then(
       (data) => {
-        if (data?.payload?.succuss) {
-          toast.success("Item Removed.");
-        } else {
-          toast.error("Failed to remove item.");
+        toast.success("Item Removed.");
+        if (!data?.payload?.success) {
+          toast.info("Failed to remove item");
         }
       }
     );
   };
 
-  const handleUpdateQuantity = (getCartItem, typeOfAction) => {
+  const handleUpdateQuantity = (cartItem, typeOfAction) => {
+    if (typeOfAction == "plus") {
+      let getCartItem = cartItems.items || [];
+
+      if (getCartItem.length) {
+        const indexOfCurrentCartItem = getCartItem.findIndex(
+          (item) => item.productId === cartItem?.productId
+        );
+
+        const getCurrentProductIndex = productList?.findIndex(
+          (item) => item._id === cartItem?.productId
+        );
+        const getTotalStock = productList[getCurrentProductIndex]?.totalStock;
+
+        if (indexOfCurrentCartItem > -1) {
+          const getQuantity = getCartItem[indexOfCurrentCartItem]?.quantity;
+          if (getQuantity + 1 > getTotalStock) {
+            toast.info(`Only ${getTotalStock} can be added for this item.`);
+            return;
+          }
+        }
+      }
+    }
+
     dispatch(
       updateCartQuantity({
         userId: user?.user?.id,
-        productId: getCartItem?.productId,
+        productId: cartItem?.productId,
         quantity:
           typeOfAction === "plus"
-            ? getCartItem?.quantity + 1
-            : getCartItem?.quantity - 1,
+            ? cartItem?.quantity + 1
+            : cartItem?.quantity - 1,
       })
     );
   };
