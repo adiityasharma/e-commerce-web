@@ -22,6 +22,7 @@ import { checkAuth } from "./features/auth/authSlice";
 import { LoaderOne } from "@/components/ui/loader";
 import PaypalReturn from "./pages/shopping/PaypalReturn";
 import PaymentSuccess from "./pages/shopping/PaymentSuccess";
+import SearchProducts from "./pages/shopping/Search";
 
 function App() {
 
@@ -83,6 +84,7 @@ function App() {
           <Route path="checkout" element={<ShoppingCheckout />} />
           <Route path="paypal-return" element={<PaypalReturn/>} />
           <Route path="payment-success" element={<PaymentSuccess/>} />
+          <Route path="search" element={<SearchProducts/>} />
         </Route>
 
         <Route path="/unAuthorized" element={<UnAuthorized />}></Route>
