@@ -68,6 +68,10 @@ const ShoppingOrders = () => {
                     className={`${
                       order?.orderStatus == "confirmed"
                         ? "bg-green-500"
+                        : order?.orderStatus == "rejected"
+                        ? "bg-red-500"
+                        : order?.orderStatus == "delivered"
+                        ? "bg-green-500"
                         : "bg-blue-500"
                     } capitalize py-1 rounded-full `}
                   >
@@ -80,7 +84,7 @@ const ShoppingOrders = () => {
                     open={openDetailsDialog}
                     onOpenChange={() => {
                       setOpenDetailsDialog(false);
-                      dispatch(resetOrderDetails())
+                      dispatch(resetOrderDetails());
                     }}
                   >
                     <Button

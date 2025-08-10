@@ -25,12 +25,24 @@ const ShoppingOrdersDetailsView = ({ orderDetails }) => {
             <p className="font-medium ">Order Price</p>
             <Label>${orderDetails?.totalAmount}</Label>
           </div>
+          <div className="capitalize flex items-center justify-between ">
+            <p className="font-medium ">Payment Method</p>
+            <Label>{orderDetails?.paymentMethod}</Label>
+          </div>
+          <div className="capitalize flex items-center justify-between ">
+            <p className="font-medium ">Payment Status</p>
+            <Label>{orderDetails?.paymentStatus}</Label>
+          </div>
           <div className="flex items-center justify-between ">
             <p className="font-medium ">Order Status</p>
             <Label className="capitalize">
               <Badge
                 className={`${
                   orderDetails?.orderStatus == "confirmed"
+                    ? "bg-green-500"
+                    : orderDetails?.orderStatus == "rejected"
+                    ? "bg-red-500"
+                    : orderDetails?.orderStatus == "delivered"
                     ? "bg-green-500"
                     : "bg-blue-500"
                 } capitalize py-1 rounded-full `}
@@ -47,8 +59,11 @@ const ShoppingOrdersDetailsView = ({ orderDetails }) => {
           <div className="grid gap-4">
             <div className="font-bold text-xl">Order Details</div>
             <ul className="grid gap-1 text-sm">
-              {orderDetails?.cartItems?.map((cartItem) => (
-                <li className="flex items-center justify-between gap-10">
+              {orderDetails?.cartItems?.map((cartItem, index) => (
+                <li
+                  key={index}
+                  className="flex items-center justify-between gap-10"
+                >
                   <div className="flex items-center justify-between w-[80%]">
                     <span className="font-semibold">{cartItem.title}</span>
                     <span>Quantity: {cartItem.quantity}</span>
