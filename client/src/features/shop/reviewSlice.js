@@ -4,13 +4,14 @@ import axios from "axios";
 
 const initialState = {
   isLoading: false,
-  reviews: []
+  reviews: [],
+  error: null
 }
 
 export const addReview = createAsyncThunk("addReview",
-  async (data) => {
+  async ({ productId, userId, username, reviewMessage ,reviewValue }) => {
     try {
-      const response = await axios.post(`http://localhost:3001/api/v1/shop/review/add`, {data})
+      const response = await axios.post(`http://localhost:3001/api/v1/shop/review/add`, { productId, userId, username, reviewMessage, reviewValue })
 
       return response.data;
     } catch (error) {
@@ -39,14 +40,16 @@ const reviewSlice = createSlice({
     builder
       .addCase(getReviews.pending, (state) => {
         state.isLoading = true
+        state.error = null
       })
       .addCase(getReviews.fulfilled, (state, action) => {
         state.isLoading = false
         state.reviews = action.payload?.data
       })
-      .addCase(getReviews.rejected, (state) => {
+      .addCase(getReviews.rejected, (state, action) => {
         state.isLoading = false;
         state.reviews = []
+        state.error = action.payload
       })
   }
 })
