@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
 import { toast } from "sonner";
 import ProductDetails from "@/components/shopping/ProductDetails";
+import { getFeatureImages } from "@/features/common-slice/featureSlice";
 
 const categoriesWithIcons = [
   { id: "men", label: "Men", icon: Shirt },
@@ -49,14 +50,13 @@ const ShoppingHome = () => {
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
   );
+  const { featureImageList } = useSelector((state) => state.commonFeature);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const slides = [bannerOne, bannerTwo, bannerThree];
-
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList?.length);
     }, 4000);
     return () => clearInterval(timer);
   }, []);
@@ -98,19 +98,25 @@ const ShoppingHome = () => {
     if (productDetails) setOpenDetailDialog(true);
   }, [productDetails]);
 
+  useEffect(() => {
+    dispatch(getFeatureImages());
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative w-full lg:h-[600px] md:h-[400px] sm:h-[300px] h-[200px] overflow-hidden">
-        {slides.map((slide, index) => (
-          <img
-            key={index}
-            src={slide}
-            alt={index}
-            className={` ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            } absolute top-0 w-full left-0 h-full object-cover transition-opacity duration-1000`}
-          />
-        ))}
+        {featureImageList && featureImageList.length > 0
+          ? featureImageList?.map((item, index) => (
+              <img
+                key={index}
+                src={item.image}
+                alt={index}
+                className={` ${
+                  index === currentSlide ? "opacity-100" : "opacity-0"
+                } absolute top-0 w-full left-0 h-full object-cover transition-opacity duration-1000`}
+              />
+            ))
+          : null}
 
         <Button
           className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 rounded"
@@ -118,7 +124,9 @@ const ShoppingHome = () => {
           size="icon"
           onClick={() =>
             setCurrentSlide(
-              (prevSlide) => (prevSlide - 1 + slides.length) % slides.length
+              (prevSlide) =>
+                (prevSlide - 1 + featureImageList?.length) %
+                featureImageList?.length
             )
           }
         >
@@ -129,7 +137,9 @@ const ShoppingHome = () => {
           variant="outline"
           size="icon"
           onClick={() =>
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)
+            setCurrentSlide(
+              (prevSlide) => (prevSlide + 1) % featureImageList?.length
+            )
           }
         >
           <ChevronsRightIcon className="w-4, h-4" />

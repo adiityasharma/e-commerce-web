@@ -14,6 +14,7 @@ const ProductImageUpload = ({
   imageLoadingState,
   setUploadedImageUrl,
   setImageLoadingState,
+  isCutomStyling = false,
 }) => {
   const inputRef = useRef(null);
 
@@ -68,7 +69,7 @@ const ProductImageUpload = ({
   }, [imageFile]);
 
   return (
-    <div className="w-full max-w-md mx-auto px-5">
+    <div className={`w-full ${isCutomStyling ? "" : "max-w-md px-5"}`}>
       <Label className={`text-sm font-semibold mb-2 block`}>Upload Image</Label>
       <div
         onDragOver={handleDragOver}
