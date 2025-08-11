@@ -88,7 +88,10 @@ const ShoppingCheckout = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-5 p-5 md:px-10 ">
-        <Address setCurrentSelectedAddress={setCurrentSelectedAddress} />
+        <Address
+          selectedId={currentSelectedAddress}
+          setCurrentSelectedAddress={setCurrentSelectedAddress}
+        />
         <div className="flex flex-col gap-4 ">
           {items && items.length > 0
             ? items.map((item, index) => (
@@ -104,9 +107,9 @@ const ShoppingCheckout = () => {
               <span className="font-bold">${totalCartAmount.toFixed(2)}</span>
             </div>
           </div>
-          <div className="w-full ">
+          <div className="w-full cursor-pointer">
             <Button onClick={handleInitiatePaypalPayment} className="w-full">
-              Checkout with Paypal
+              {isPaymentStart ? "Processing Payment" : "Checkout with Paypal"}
             </Button>
           </div>
         </div>
