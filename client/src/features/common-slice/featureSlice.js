@@ -9,21 +9,21 @@ const initialState = {
 
 export const getFeatureImages = createAsyncThunk("getFeatureImages",
   async () => {
-    const response = await axios.get(`http://localhost:3001/api/v1/common/feature/get`);
+    const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/common/feature/get`);
     return response.data
   }
 )
 
 export const addFeatureImages = createAsyncThunk("addFeatureImages",
   async (image) => {
-    const response = await axios.post(`http://localhost:3001/api/v1/common/feature/add`, {image});
+    const response = await axios.post(`https://demo-ecommerce-443h.onrender.com/api/v1/common/feature/add`, {image});
     return response.data
   }
 )
 
 export const deleteFeatureImage = createAsyncThunk("deleteFeatureImage",
   async (id) => {
-    const response = await axios.delete(`http://localhost:3001/api/v1/common/feature/delete/${id}`);
+    const response = await axios.delete(`https://demo-ecommerce-443h.onrender.com/api/v1/common/feature/delete/${id}`);
     return response.data
   }
 )

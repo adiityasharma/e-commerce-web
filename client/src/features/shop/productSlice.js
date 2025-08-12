@@ -17,14 +17,14 @@ export const fetchAllFilterdProducts = createAsyncThunk("fetchAllFilterdProducts
       sortBy: sortParams
     })
 
-    const response = await axios.get(`http://localhost:3001/api/v1/shop/products/get?${query}`);
+    const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/products/get?${query}`);
     return response.data
   }
 )
 
 export const fetchProductDetails = createAsyncThunk("fetchProductDetails", 
   async (id) => {
-    const response = await axios.get(`http://localhost:3001/api/v1/shop/products/get/${id}`)
+    const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/products/get/${id}`)
     
     return response.data;
   }

@@ -43,6 +43,12 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
+app.use("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "API is running..."
+  })
+})
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/admin/products", adminProductRouter)
 app.use("/api/v1/admin/orders", adminOrderRouter)

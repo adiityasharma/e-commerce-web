@@ -13,7 +13,7 @@ const initialState = {
 export const createNewOrder = createAsyncThunk("createNewOrder",
   async (orderData) => {
     try {
-      const response = await axios.post("http://localhost:3001/api/v1/shop/order/create", orderData)
+      const response = await axios.post("https://demo-ecommerce-443h.onrender.com/api/v1/shop/order/create", orderData)
 
       return response.data;
     } catch (error) {
@@ -25,7 +25,7 @@ export const createNewOrder = createAsyncThunk("createNewOrder",
 export const capturePayment = createAsyncThunk("capturePayment",
   async ({ paymentId, payerId, orderId }) => {
     try {
-      const response = await axios.post("http://localhost:3001/api/v1/shop/order/capture", { paymentId, payerId, orderId })
+      const response = await axios.post("https://demo-ecommerce-443h.onrender.com/api/v1/shop/order/capture", { paymentId, payerId, orderId })
 
       return response.data;
     } catch (error) {
@@ -36,7 +36,7 @@ export const capturePayment = createAsyncThunk("capturePayment",
 export const getAllOrdersByUser = createAsyncThunk("getAllOrdersByUser",
   async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/shop/order/list/${userId}`)
+      const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/order/list/${userId}`)
 
       return response.data;
     } catch (error) {
@@ -47,7 +47,7 @@ export const getAllOrdersByUser = createAsyncThunk("getAllOrdersByUser",
 export const getOrderDetails = createAsyncThunk("getOrderDetails",
   async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/shop/order/details/${id}`)
+      const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/order/details/${id}`)
 
       return response.data;
     } catch (error) {

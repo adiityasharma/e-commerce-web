@@ -11,7 +11,7 @@ const initialState = {
 export const addReview = createAsyncThunk("addReview",
   async ({ productId, userId, username, reviewMessage ,reviewValue }) => {
     try {
-      const response = await axios.post(`http://localhost:3001/api/v1/shop/review/add`, { productId, userId, username, reviewMessage, reviewValue })
+      const response = await axios.post(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/review/add`, { productId, userId, username, reviewMessage, reviewValue })
 
       return response.data;
     } catch (error) {
@@ -22,7 +22,7 @@ export const addReview = createAsyncThunk("addReview",
 export const getReviews = createAsyncThunk("getReviews",
   async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/shop/review/${id}`)
+      const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/review/${id}`)
 
       return response.data;
     } catch (error) {

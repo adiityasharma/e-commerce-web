@@ -13,7 +13,7 @@ const initialState = {
 export const getAllOrdersForAdmin = createAsyncThunk("getAllOrdersForAdmin",
   async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/admin/orders/get`)
+      const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/admin/orders/get`)
 
       return response.data;
     } catch (error) {
@@ -24,7 +24,7 @@ export const getAllOrdersForAdmin = createAsyncThunk("getAllOrdersForAdmin",
 export const getOrderDetailsForAdmin = createAsyncThunk("getOrderDetailsForAdmin",
   async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/admin/orders/details/${id}`)
+      const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/admin/orders/details/${id}`)
 
       return response.data;
     } catch (error) {
@@ -36,7 +36,7 @@ export const getOrderDetailsForAdmin = createAsyncThunk("getOrderDetailsForAdmin
 export const updateOrderStatus = createAsyncThunk("updateOrderStatus",
   async ({id, orderStatus}) => {
     try {
-      const response = await axios.put(`http://localhost:3001/api/v1/admin/orders/update/${id}`, {orderStatus})
+      const response = await axios.put(`https://demo-ecommerce-443h.onrender.com/api/v1/admin/orders/update/${id}`, {orderStatus})
 
       return response.data;
     } catch (error) {

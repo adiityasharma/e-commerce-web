@@ -10,28 +10,28 @@ const initialState = {
 
 export const addToCart = createAsyncThunk("addToCart",
   async ({ userId, productId, quantity }) => {
-    const response = await axios.post("http://localhost:3001/api/v1/shop/cart/add", { userId, productId, quantity })
+    const response = await axios.post("https://demo-ecommerce-443h.onrender.com/api/v1/shop/cart/add", { userId, productId, quantity })
 
     return response.data;
   }
 )
 export const fetchCartItems = createAsyncThunk("fetchCartItems",
   async (userId) => {
-    const response = await axios.get(`http://localhost:3001/api/v1/shop/cart/get/${userId}`)
+    const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/cart/get/${userId}`)
 
     return response.data;
   }
 )
 export const deleteCartItem = createAsyncThunk("deleteCartItem",
   async ({ userId, productId }) => {
-    const response = await axios.delete(`http://localhost:3001/api/v1/shop/cart/delete/${userId}/${productId}`)
+    const response = await axios.delete(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/cart/delete/${userId}/${productId}`)
 
     return response.data;
   }
 )
 export const updateCartQuantity = createAsyncThunk("updateCartQuantity",
   async ({ userId, productId, quantity }) => {
-    const response = await axios.put("http://localhost:3001/api/v1/shop/cart/update-cart", { userId, productId, quantity })
+    const response = await axios.put("https://demo-ecommerce-443h.onrender.com/api/v1/shop/cart/update-cart", { userId, productId, quantity })
 
     return response.data;
   }

@@ -11,7 +11,7 @@ const initialState = {
 export const registerUser = createAsyncThunk("/auth/register",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:3001/api/v1/auth/register", formData, { withCredentials: true })
+      const response = await axios.post("https://demo-ecommerce-443h.onrender.com/api/v1/auth/register", formData, { withCredentials: true })
       return await response.data;
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
@@ -26,7 +26,7 @@ export const registerUser = createAsyncThunk("/auth/register",
 export const loginUser = createAsyncThunk("loginUser",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:3001/api/v1/auth/login", formData, { withCredentials: true })
+      const response = await axios.post("https://demo-ecommerce-443h.onrender.com/api/v1/auth/login", formData, { withCredentials: true })
       return await response.data
     } catch (error) {
       console.log(error)
@@ -41,7 +41,7 @@ export const loginUser = createAsyncThunk("loginUser",
 
 export const checkAuth = createAsyncThunk("checkAuth",
   async (_, { rejectWithValue }) => {
-    const response = await axios.get("http://localhost:3001/api/v1/auth/checkAuth",
+    const response = await axios.get("https://demo-ecommerce-443h.onrender.com/api/v1/auth/checkAuth",
       {
         withCredentials: true,
         headers: {
@@ -55,7 +55,7 @@ export const checkAuth = createAsyncThunk("checkAuth",
 
 export const logoutUser = createAsyncThunk("logoutUser",
   async () => {
-    const response = await axios.post("http://localhost:3001/api/v1/auth/logout", {}, { withCredentials: true });
+    const response = await axios.post("https://demo-ecommerce-443h.onrender.com/api/v1/auth/logout", {}, { withCredentials: true });
     return response.data
   }
 )

@@ -11,7 +11,7 @@ const initialState = {
 
 export const addNewAddress = createAsyncThunk("addNewAddress",
   async (formData) => {
-    const response = await axios.post("http://localhost:3001/api/v1/shop/address/add", formData);
+    const response = await axios.post("https://demo-ecommerce-443h.onrender.com/api/v1/shop/address/add", formData);
 
     return response.data;
   }
@@ -19,7 +19,7 @@ export const addNewAddress = createAsyncThunk("addNewAddress",
 
 export const fetchAllAddress = createAsyncThunk("fetchAllAddress",
   async (userId) => {
-    const response = await axios.get(`http://localhost:3001/api/v1/shop/address/get/${userId}`);
+    const response = await axios.get(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/address/get/${userId}`);
 
     return response.data;
   }
@@ -30,7 +30,7 @@ export const deleteAddress = createAsyncThunk(
     try {
 
       const response = await axios.delete(
-        `http://localhost:3001/api/v1/shop/address/delete/${userId}/${addressId}`
+        `https://demo-ecommerce-443h.onrender.com/api/v1/shop/address/delete/${userId}/${addressId}`
       );
       return response.data;
     } catch (error) {
@@ -46,7 +46,7 @@ export const deleteAddress = createAsyncThunk(
 
 export const editAddress = createAsyncThunk("editAddress",
   async ({ userId, addressId, formData }) => {
-    const response = await axios.put(`http://localhost:3001/api/v1/shop/address/update/${userId}/${addressId}`, formData);
+    const response = await axios.put(`https://demo-ecommerce-443h.onrender.com/api/v1/shop/address/update/${userId}/${addressId}`, formData);
 
     return response.data;
   }
