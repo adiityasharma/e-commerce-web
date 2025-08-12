@@ -20,7 +20,7 @@ import ShoppingProductTile from "@/components/shopping/ProductTile.jsx";
 import { useNavigate } from "react-router-dom";
 import { addToCart, fetchCartItems } from "@/features/shop/cartSlice.js";
 import { toast } from "sonner";
-import ProductDetails from "@/components/shopping/ProductDetails.js";
+import ProductDetails from "@/components/shopping/ProductDetails.jsx";
 import { getFeatureImages } from "@/features/common-slice/featureSlice.js";
 
 const categoriesWithIcons = [
