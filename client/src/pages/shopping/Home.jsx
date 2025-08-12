@@ -16,7 +16,7 @@ import {
   fetchAllFilterdProducts,
   fetchProductDetails,
 } from "@/features/shop/productSlice.js";
-import ShoppingProductTile from "@/components/shopping/ProductTile.js";
+import ShoppingProductTile from "@/components/shopping/ProductTile.jsx";
 import { useNavigate } from "react-router-dom";
 import { addToCart, fetchCartItems } from "@/features/shop/cartSlice.js";
 import { toast } from "sonner";
