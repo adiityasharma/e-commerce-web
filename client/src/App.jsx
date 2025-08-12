@@ -1,28 +1,28 @@
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import AuthLayout from "./components/auth/layout";
-import Login from "./pages/auth/login";
-import Register from "./pages/auth/register";
-import AdminLayout from "./components/admin/layout";
-import AdminDashboard from "./pages/admin/Dashboard";
-import AdminOrders from "./pages/admin/Orders";
-import AdminFeatures from "./pages/admin/Features";
-import AdminProducts from "./pages/admin/Products";
-import ShoppingLayout from "./components/shopping/Layout";
-import NotFound from "./pages/notFound/NotFound";
-import ShoppingHome from "./pages/shopping/Home";
-import ShoppingAccount from "./pages/shopping/Account";
-import ShoppingListing from "./pages/shopping/Listing";
-import ShoppingCheckout from "./pages/shopping/Checkout";
-import UnAuthorized from "./pages/unAuthorized/unAuthorized";
-import CheckAuth from "./components/common/CheckAuth";
+import AuthLayout from "./components/auth/layout.jsx";
+import Login from "./pages/auth/Login.jsx";
+import Register from "./pages/auth/Register.jsx";
+import AdminLayout from "./components/admin/layout.jsx";
+import AdminDashboard from "./pages/admin/Dashboard.jsx";
+import AdminOrders from "./pages/admin/Orders.jsx";
+import AdminFeatures from "./pages/admin/Features.jsx";
+import AdminProducts from "./pages/admin/Products.jsx";
+import ShoppingLayout from "./components/shopping/Layout.jsx";
+import NotFound from "./pages/notFound/NotFound.jsx";
+import ShoppingHome from "./pages/shopping/Home.jsx";
+import ShoppingAccount from "./pages/shopping/Account.jsx";
+import ShoppingListing from "./pages/shopping/Listing.jsx";
+import ShoppingCheckout from "./pages/shopping/Checkout.jsx";
+import UnAuthorized from "./pages/unAuthorized/unAuthorized.jsx";
+import CheckAuth from "./components/common/CheckAuth.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { checkAuth } from "./features/auth/authSlice";
-import { LoaderOne } from "@/components/ui/loader";
-import PaypalReturn from "./pages/shopping/PaypalReturn";
-import PaymentSuccess from "./pages/shopping/PaymentSuccess";
-import SearchProducts from "./pages/shopping/Search";
+import { checkAuth } from "./features/auth/authSlice.js";
+import { LoaderOne } from "@/components/ui/loader.jsx";
+import PaypalReturn from "./pages/shopping/PaypalReturn.jsx";
+import PaymentSuccess from "./pages/shopping/PaymentSuccess.jsx";
+import SearchProducts from "./pages/shopping/Search.jsx";
 
 function App() {
 
