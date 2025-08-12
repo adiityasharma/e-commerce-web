@@ -78,9 +78,10 @@ const loginUser = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24,
-      secure: false
-    })
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      secure: process.env.NODE_ENV === "production", // true on Render
+      sameSite: "None" // needed for cross-site cookies
+    });
 
     res.status(200).json({
       success: true,
