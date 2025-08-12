@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import bannerOne from "../../assets/banner-1.webp";
-import bannerTwo from "../../assets/banner-2.webp";
-import bannerThree from "../../assets/banner-3.webp";
 import { Button } from "@/components/ui/button";
 import {
   Baby,
@@ -54,12 +51,14 @@ const ShoppingHome = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
+
   useEffect(() => {
+    if (!featureImageList?.length) return; 
     const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList?.length);
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [featureImageList]);
 
   useEffect(() => {
     dispatch(

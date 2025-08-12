@@ -25,6 +25,7 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
     setRating(getRating);
   };
 
+
   const handleAddToCart = (productId, totalStock) => {
     let getCartItem = cartItems.items || [];
 
@@ -74,7 +75,7 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
         dispatch(getReviews(productDetails?._id));
         toast.success("Thankyou For Your Valuable Review.");
       } else {
-        toast.info("You already reviewed this product.");
+        toast.info("You need to purchase this product first or you already reviewed this product.");
       }
     });
   };
