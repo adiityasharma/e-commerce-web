@@ -26,8 +26,13 @@ const app = express();
 
 const PORT = process.env.PORT || 3002
 
+const allowedOrigins = [
+  "http://localhost:3000",                        // local dev
+  "https://ecommerce-three-black-47.vercel.app"   // your Vercel frontend URL
+];
+
 app.use(cors({
-  origin: ["http://localhost:5173", "https://ecommerce-three-black-47.vercel.app/"],
+  origin: allowedOrigins,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: [
     "Content-Type",
