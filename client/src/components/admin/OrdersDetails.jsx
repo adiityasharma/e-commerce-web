@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { DialogContent } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
-import Form from "../common/Form";
+import Form from "../common/Form.jsx";
 import { Badge } from "../ui/badge";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllOrdersForAdmin,
   getOrderDetailsForAdmin,
   updateOrderStatus,
-} from "@/features/admin/orderSlice";
+} from "@/features/admin/orderSlice.js";
 import { toast } from "sonner";
 
 const initialFormData = {

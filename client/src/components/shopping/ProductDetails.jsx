@@ -5,13 +5,13 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import { StarIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
+import { addToCart, fetchCartItems } from "@/features/shop/cartSlice.js";
 import { toast } from "sonner";
-import { setProductDetails } from "@/features/shop/productSlice";
+import { setProductDetails } from "@/features/shop/productSlice.js";
 import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
-import StarRating from "../common/StarRating";
-import { addReview, getReviews } from "@/features/shop/reviewSlice";
+import StarRating from "../common/StarRating.jsx";
+import { addReview, getReviews } from "@/features/shop/reviewSlice.js";
 
 const ProductDetails = ({ open, setOpen, productDetails }) => {
   const [reviewMsg, setReviewMsg] = useState("");

@@ -1,8 +1,8 @@
 import React from "react";
 import accImage from "../../assets/account.jpg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Orders from "@/components/shopping/Orders";
-import Address from "@/components/shopping/Address";
+import Orders from "@/components/shopping/Orders.jsx";
+import Address from "@/components/shopping/Address.jsx";
 
 const ShoppingAccount = () => {
   return (

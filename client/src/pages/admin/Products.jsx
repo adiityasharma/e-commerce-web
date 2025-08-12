@@ -1,6 +1,6 @@
-import ProductImageUpload from "@/components/admin/ImageUpload";
-import AdminProductTile from "@/components/admin/productTile";
-import Form from "@/components/common/Form";
+import ProductImageUpload from "@/components/admin/ImageUpload.jsx";
+import AdminProductTile from "@/components/admin/productTile.jsx";
+import Form from "@/components/common/Form.jsx";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -8,13 +8,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { addProductFormElements } from "@/config/formControl";
+import { addProductFormElements } from "@/config/formControl.js";
 import {
   addNewProduct,
   deleteProduct,
   editProduct,
   fetchAllProducts,
-} from "@/features/admin/productSlice/productSlice";
+} from "@/features/admin/productSlice/productSlice.js";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";

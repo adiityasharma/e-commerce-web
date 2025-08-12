@@ -1,5 +1,5 @@
-import ProductImageUpload from "@/components/admin/ImageUpload";
-import { Button } from "@/components/ui/button";
+import ProductImageUpload from "@/components/admin/ImageUpload.jsx";
+import { Button } from "@/components/ui/button.jsx";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {

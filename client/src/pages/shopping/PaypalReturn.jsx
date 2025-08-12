@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
-import { capturePayment } from '@/features/shop/orderSlice';
+import { capturePayment } from '@/features/shop/orderSlice.js';
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom';

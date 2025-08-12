@@ -1,12 +1,12 @@
-import ProductDetails from "@/components/shopping/ProductDetails";
-import ShoppingProductTile from "@/components/shopping/ProductTile";
+import ProductDetails from "@/components/shopping/ProductDetails.jsx";
+import ShoppingProductTile from "@/components/shopping/ProductTile.jsx";
 import { Input } from "@/components/ui/input";
-import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
-import { fetchProductDetails } from "@/features/shop/productSlice";
+import { addToCart, fetchCartItems } from "@/features/shop/cartSlice.js";
+import { fetchProductDetails } from "@/features/shop/productSlice.js";
 import {
   getSearchResult,
   resetSearchResult,
-} from "@/features/shop/searchSlice";
+} from "@/features/shop/searchSlice.js";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";

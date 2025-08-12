@@ -1,18 +1,18 @@
-import ProductDetails from "@/components/shopping/ProductDetails";
-import ProductFliter from "@/components/shopping/ProductFliter";
-import ShoppingProductTile from "@/components/shopping/ProductTile";
+import ProductDetails from "@/components/shopping/ProductDetails.jsx";
+import ProductFliter from "@/components/shopping/ProductFliter.jsx";
+import ShoppingProductTile from "@/components/shopping/ProductTile.jsx";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
-import { sortOptions } from "@/config/formControl";
-import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
+import { sortOptions } from "@/config/formControl.js";
+import { addToCart, fetchCartItems } from "@/features/shop/cartSlice.js";
 import {
   fetchAllFilterdProducts,
   fetchProductDetails,
-} from "@/features/shop/productSlice";
+} from "@/features/shop/productSlice.js";
 import {
   DropdownMenu,
   DropdownMenuTrigger,

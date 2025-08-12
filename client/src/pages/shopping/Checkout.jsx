@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import image from "../../assets/account.jpg";
-import Address from "@/components/shopping/Address";
+import Address from "@/components/shopping/Address.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import CartItemContent from "@/components/shopping/CartItemContent";
+import CartItemContent from "@/components/shopping/CartItemContent.jsx";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { createNewOrder } from "@/features/shop/orderSlice";
+import { createNewOrder } from "@/features/shop/orderSlice.js";
 import { toast } from "sonner";
 
 const ShoppingCheckout = () => {

@@ -10,13 +10,13 @@ import {
 } from "../ui/table";
 import { Button } from "../ui/button";
 import { Dialog } from "../ui/dialog";
-import ShoppingOrdersDetailsView from "./OrdersDetails";
+import ShoppingOrdersDetailsView from "./OrdersDetails.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllOrdersByUser,
   getOrderDetails,
   resetOrderDetails,
-} from "@/features/shop/orderSlice";
+} from "@/features/shop/orderSlice.js";
 import { Badge } from "../ui/badge";
 
 const ShoppingOrders = () => {

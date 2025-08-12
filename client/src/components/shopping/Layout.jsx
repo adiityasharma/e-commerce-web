@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import ShoppingHeader from './Header';
+import ShoppingHeader from './Header.jsx';
 
 const ShoppingLayout = () => {
   return (

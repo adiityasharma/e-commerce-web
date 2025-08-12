@@ -3,7 +3,7 @@ import { Button } from '../ui/button'
 import { AlignJustify, LogOut } from 'lucide-react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'sonner'
-import { logoutUser } from '@/features/auth/authSlice'
+import { logoutUser } from '@/features/auth/authSlice.js'
 
 const AdminHeader = ({ open, setOpen }) => {
   

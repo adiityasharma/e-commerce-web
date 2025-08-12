@@ -10,13 +10,13 @@ import {
 } from "../ui/table";
 import { Button } from "../ui/button";
 import { Dialog } from "../ui/dialog";
-import AdminOrdersDetailsView from "./OrdersDetails";
+import AdminOrdersDetailsView from "./OrdersDetails.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllOrdersForAdmin,
   getOrderDetailsForAdmin,
   resetOrderDetails,
-} from "@/features/admin/orderSlice";
+} from "@/features/admin/orderSlice.js";
 import { Badge } from "../ui/badge";
 import ShoppingOrdersDetailsView from "../shopping/OrdersDetails";
 

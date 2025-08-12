@@ -1,6 +1,6 @@
-import Form from "@/components/common/Form";
-import { LoginFormControl } from "@/config/formControl";
-import { loginUser } from "@/features/auth/authSlice";
+import Form from "@/components/common/Form.jsx";
+import { LoginFormControl } from "@/config/formControl.js";
+import { loginUser } from "@/features/auth/authSlice.js";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";

@@ -1,4 +1,4 @@
-import AdminOrdersView from '@/components/admin/AdminOrders';
+import AdminOrdersView from '@/components/admin/AdminOrders.jsx';
 import React from 'react'
 
 const AdminOrders = () => {

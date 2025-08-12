@@ -15,13 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllFilterdProducts,
   fetchProductDetails,
-} from "@/features/shop/productSlice";
-import ShoppingProductTile from "@/components/shopping/ProductTile";
+} from "@/features/shop/productSlice.js";
+import ShoppingProductTile from "@/components/shopping/ProductTile.js";
 import { useNavigate } from "react-router-dom";
-import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
+import { addToCart, fetchCartItems } from "@/features/shop/cartSlice.js";
 import { toast } from "sonner";
-import ProductDetails from "@/components/shopping/ProductDetails";
-import { getFeatureImages } from "@/features/common-slice/featureSlice";
+import ProductDetails from "@/components/shopping/ProductDetails.js";
+import { getFeatureImages } from "@/features/common-slice/featureSlice.js";
 
 const categoriesWithIcons = [
   { id: "men", label: "Men", icon: Shirt },

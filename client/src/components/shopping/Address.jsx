@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import Form from "../common/Form";
-import { addressFormControls } from "@/config/formControl";
+import Form from "../common/Form.jsx";
+import { addressFormControls } from "@/config/formControl.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addNewAddress,
   deleteAddress,
   editAddress,
   fetchAllAddress,
-} from "@/features/address/address.slice";
+} from "@/features/address/address.slice.js";
 import { toast } from "sonner";
-import AddressCard from "./AddressCard";
+import AddressCard from "./AddressCard.jsx";
 
 const initialAddressFormData = {
   address: "",

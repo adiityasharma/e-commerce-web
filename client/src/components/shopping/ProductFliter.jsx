@@ -1,4 +1,4 @@
-import { filterOptions } from "@/config/formControl";
+import { filterOptions } from "@/config/formControl.js";
 import React from "react";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";

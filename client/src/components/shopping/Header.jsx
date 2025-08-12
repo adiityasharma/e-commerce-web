@@ -16,7 +16,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
-import { shoppingViewHeaderMenuItems } from "@/config/formControl";
+import { shoppingViewHeaderMenuItems } from "@/config/formControl.js";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -26,10 +26,10 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { DropdownMenuContent } from "../ui/dropdown-menu";
-import { logoutUser } from "@/features/auth/authSlice";
+import { logoutUser } from "@/features/auth/authSlice.js";
 import { toast } from "sonner";
-import CartWrapper from "./cartWrapper";
-import { fetchCartItems } from "@/features/shop/cartSlice";
+import CartWrapper from "./CartWrapper.jsx";
+import { fetchCartItems } from "@/features/shop/cartSlice.js";
 import { Label } from "../ui/label";
 
 const MenuItems = () => {
