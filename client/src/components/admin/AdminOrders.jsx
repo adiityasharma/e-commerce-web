@@ -43,7 +43,7 @@ const AdminOrdersView = () => {
         <CardTitle>All Orders</CardTitle>
       </CardHeader>
 
-      <CardContent className={`overflow-auto w-[90vw] sm:w-fit `}>
+      <CardContent className={`overflow-auto w-[90vw] sm:w-full `}>
         <Table>
           <TableHeader>
             <TableRow>
