@@ -145,18 +145,20 @@ const ShoppingHome = () => {
         </Button>
       </div>
 
-      <section className="py-12 bg-gray-50">
+      <section className="md:py-12 py-5 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center">Shop by Brand</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-5">
+          <h2 className="md:text-2xl text-xl font-bold text-center">
+            Shop by Brand
+          </h2>
+          <div className="grid grid-cols-3 md:grid-cols-3  lg:grid-cols-6 md:gap-4 gap-2 mt-5">
             {brandWithIcons.map((brandItem, index) => (
               <Card
                 onClick={() => handleNavigateToListingPage(brandItem, "brand")}
                 key={index}
                 className="cursor-pointer hover:shadow-lg transition-shadow "
               >
-                <CardContent className="flex flex-col items-center justify-center p-6">
-                  <brandItem.icon className="w-12 h-12 mb-4 text-primary" />
+                <CardContent className="flex flex-col items-center justify-center md:p-6">
+                  <brandItem.icon className="md:w-12 md:h-12 md:mb-4 mb-2  text-primary" />
                   <span className="font-bold">{brandItem.label}</span>
                 </CardContent>
               </Card>
@@ -165,10 +167,12 @@ const ShoppingHome = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-gray-50">
+      <section className="md:py-12 py-0 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center">Shop by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-5">
+          <h2 className="md:text-2xl text-xl font-bold text-center">
+            Shop by Category
+          </h2>
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 md:gap-4 gap-2 mt-5">
             {categoriesWithIcons.map((categoryItem, index) => (
               <Card
                 onClick={() =>
@@ -177,8 +181,8 @@ const ShoppingHome = () => {
                 key={index}
                 className="cursor-pointer hover:shadow-lg transition-shadow "
               >
-                <CardContent className="flex flex-col items-center justify-center p-6">
-                  <categoryItem.icon className="w-12 h-12 mb-4 text-primary" />
+                <CardContent className="flex flex-col items-center justify-center md:p-6">
+                  <categoryItem.icon className="md:w-12 md:h-12 md:mb-4 mb-2 text-primary" />
                   <span className="font-bold">{categoryItem.label}</span>
                 </CardContent>
               </Card>
@@ -187,11 +191,11 @@ const ShoppingHome = () => {
         </div>
       </section>
 
-      <section className="py-12 ">
+      <section className="md:py-12 mt-5 mb-8">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center">Featured products</h2>
+          <h2 className="md:text-2xl text-xl font-bold text-center">Featured products</h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:mt-10 mt-5">
             {productList && productList.length > 0
               ? productList.map((product, index) => (
                   <ShoppingProductTile

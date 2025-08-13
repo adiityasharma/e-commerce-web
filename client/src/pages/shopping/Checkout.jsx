@@ -79,11 +79,11 @@ const ShoppingCheckout = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="relative h-[300px] overflow-hidden w-full ">
+      <div className="relative h-40 md:h-100 overflow-hidden w-full ">
         <img
           src={image}
           alt="image"
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full  object-cover object-center"
         />
       </div>
 

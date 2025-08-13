@@ -94,14 +94,12 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="grid sm:grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw] ">
-        <div className="relative overflow-hidden rounded-lg">
+      <DialogContent className="grid sm:grid-cols-2 md:gap-8 gap-2 h-[90vh] overflow-auto sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[80vw] p-4 md:p-10">
+        <div className="relative rounded-lg md:h-full h-fit w-fit mt-5 lg:mt-0">
           <img
             src={productDetails?.image}
             alt={productDetails?.title}
-            width={600}
-            height={600}
-            className="aspect-square w-full object-cover rounded-lg"
+            className="aspect-square w-full md:h-full object-cover rounded-lg "
           />
 
           {productDetails?.totalStock <= 0 ? (
@@ -124,10 +122,10 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
         </div>
         <div className="flex-col flex gap-2">
           <div className="h-auto">
-            <h1 className="text-3xl font-bold capitalize">
+            <h1 className="md:text-3xl text-xl font-bold capitalize">
               {productDetails?.title}
             </h1>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-sm">
               {productDetails?.description}
             </p>
           </div>
@@ -153,10 +151,12 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
 
           <div className="flex items-center ">
             <StarRating rating={averageRating} />
-            <span className="text-sm ml-3 font-bold">({averageRating.toFixed(1)})</span>
+            <span className="text-sm ml-3 font-bold">
+              ({averageRating.toFixed(1)})
+            </span>
           </div>
 
-          <div className="w-fit mt-5">
+          <div className="md:w-fit w-full md:mt-5 mt-1">
             <Button
               onClick={() =>
                 handleAddToCart(productDetails?._id, productDetails?.totalStock)
@@ -169,14 +169,14 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
             </Button>
           </div>
 
-          <div className="max-h-[300px] overflow-auto mt-5">
-            <h2 className="text-xl font-bold mb-4">Reviews</h2>
+          <div className="max-h-[300px] overflow-auto md:mt-5 mt-2">
+            <h2 className="text-xl font-bold md:mb-4 mb-2">Reviews</h2>
 
             {reviews && reviews.length > 0
               ? reviews.map((reviewItem, index) => (
-                  <div className="grid gap-6">
-                    <div className="flex gap-4">
-                      <Avatar className="w-10 h-10 border">
+                  <div key={index} className="grid gap-6">
+                    <div className="flex md:gap-4 gap-3">
+                      <Avatar className="md:w-10 md:h-10 border">
                         <AvatarFallback>
                           {reviewItem.username[0]}
                         </AvatarFallback>
@@ -188,7 +188,7 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
                         <div className="flex ">
                           <StarRating rating={reviewItem.reviewValue} />
                         </div>
-                        <p className="text-muted-foreground">
+                        <p className="text-muted-foreground text-sm">
                           {reviewItem.reviewMessage}
                         </p>
                       </div>
@@ -197,7 +197,7 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
                 ))
               : "No Reviews"}
           </div>
-          <div className="flex gap-2 mt-10 flex-col">
+          <div className="flex gap-2 md:mt-10 mt-2 flex-col">
             <Label>Write a review</Label>
             <div className="flex">
               <StarRating

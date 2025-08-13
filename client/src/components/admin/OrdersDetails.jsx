@@ -38,7 +38,7 @@ const AdminOrdersDetailsView = ({ orderDetails }) => {
   };
 
   return (
-    <DialogContent className="sm:max-w-[600px] ">
+    <DialogContent className="sm:max-w-[650px] h-[90vh] overflow-auto">
       <div className="grid gap-4">
         <div className="grid gap-2 text-sm">
           <div className="flex items-center justify-between mt-6">

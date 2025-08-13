@@ -10,8 +10,8 @@ const ShoppingOrdersDetailsView = ({ orderDetails }) => {
   return (
     <DialogContent className="sm:max-w-[600px] ">
       <div className="grid gap-4">
-        <div className="grid gap-1">
-          <div className="flex items-center justify-between mt-6">
+        <div className="grid gap-1 md:text-lg text-[15px]">
+          <div className="flex items-center justify-between mt-6 ">
             <p className="font-medium ">Order ID</p>
             <Label>{orderDetails?._id}</Label>
           </div>
@@ -57,19 +57,20 @@ const ShoppingOrdersDetailsView = ({ orderDetails }) => {
 
         <div className="grid gap-4">
           <div className="grid gap-4">
-            <div className="font-bold text-xl">Order Details</div>
+            <div className="font-bold md:text-xl text-lg">Order Details</div>
             <ul className="grid gap-1 text-sm">
               {orderDetails?.cartItems?.map((cartItem, index) => (
-                <li
-                  key={index}
-                  className="flex items-center justify-between gap-10"
-                >
-                  <div className="flex items-center justify-between w-[80%]">
-                    <span className="font-semibold">{cartItem.title}</span>
-                    <span>Quantity: {cartItem.quantity}</span>
+                <li key={index} className="flex justify-between gap-5">
+                  <div className="font-semibold md:text-sm text-[12px] ">
+                    {cartItem.title}
                   </div>
-                  <div className="w-[20%] flex items-center justify-between">
-                    <span>Price:</span> ${cartItem.price}
+                  <div className="flex justify-between gap-3 ">
+                    <div className="flex">
+                      <p>Qt:</p> {cartItem.quantity}
+                    </div>
+                    <div className=" flex justify-between">
+                      <span>Price: </span> ${cartItem.price}
+                    </div>
                   </div>
                 </li>
               ))}
@@ -81,8 +82,8 @@ const ShoppingOrdersDetailsView = ({ orderDetails }) => {
 
         <div className="grid gap-4">
           <div className="grid gap-4">
-            <div className="font-bold text-xl">Shipping Info</div>
-            <div className="grid gap-0.5 text-black/80">
+            <div className="font-bold md:text-xl text-lg">Shipping Info</div>
+            <div className="grid gap-0.5 text-black/80 md:text-sm text-[13px] ">
               <span>
                 <span className="font-semibold">Address:</span>{" "}
                 {orderDetails?.addressInfo?.address}

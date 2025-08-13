@@ -20,22 +20,22 @@ const AddressCard = ({
       } `}
       onClick={() => setCurrentSelectedAddress(addressInfo)}
     >
-      <CardContent className="grid gap-4">
-        <Label>
-          <span className="font-bold">Address:</span> {addressInfo?.address}
-        </Label>
-        <Label>
+      <CardContent className="grid gap-2">
+        <div>
+          <p className="font-bold">Address:</p> {addressInfo?.address}
+        </div>
+        <div>
           <span className="font-bold">City:</span> {addressInfo?.city}
-        </Label>
-        <Label>
+        </div>
+        <div>
           <span className="font-bold">Pincode:</span> {addressInfo?.pincode}
-        </Label>
-        <Label>
+        </div>
+        <div>
           <span className="font-bold">Phone:</span> {addressInfo?.phone}
-        </Label>
-        <Label>
+        </div>
+        <div>
           <span className="font-bold">Notes:</span> {addressInfo?.notes}
-        </Label>
+        </div>
       </CardContent>
 
       <CardFooter className="flex gap-1">

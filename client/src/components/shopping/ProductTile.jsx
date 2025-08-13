@@ -40,11 +40,11 @@ const ShoppingProductTile = ({
             <Badge className="absolute top-2 left-2 bg-red-500 ">Sale</Badge>
           ) : null}
         </div>
-        <CardContent className="p-4">
-          <h2 className="text-lg truncate font-semibold mb-2 capitalize">
+        <CardContent className="md:p-4 p-2">
+          <h2 className="md:text-lg truncate font-semibold md:mb-2 capitalize">
             {product?.title}
           </h2>
-          <div className="flex justify-between items-center mb-1">
+          <div className="flex justify-between items-center md:mb-1">
             <span className="text-sm text-muted-foreground capitalize">
               {product?.category}
             </span>
@@ -68,7 +68,7 @@ const ShoppingProductTile = ({
           </div>
         </CardContent>
 
-        <CardFooter>
+        <CardFooter className={`w-full px-2`}>
           <Button
             onClick={() => handleAddToCart(product?._id, product?.totalStock)}
             className={`w-full cursor-pointer ${

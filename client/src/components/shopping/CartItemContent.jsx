@@ -59,37 +59,39 @@ const CartItemContent = ({ cartItem }) => {
   };
 
   return (
-    <div className="flex items-center space-x-4">
-      <img
-        src={cartItem?.image}
-        alt={cartItem?.title}
-        className="w-20 h-20 rounded object-cover border-1"
-      />
-      <div className="flex-1 ">
-        <h3 className="font-semibold ">{cartItem?.title}</h3>
-        <div className="flex items-center mt-1 gap-2">
-          <Button
-            onClick={() => handleUpdateQuantity(cartItem, "minus")}
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 rounded-full"
-          >
-            <Minus className="w-4 h-4" />
-            <span className="sr-only">decrease</span>
-          </Button>
-          <span className="font-bold">{cartItem?.quantity}</span>
-          <Button
-            onClick={() => handleUpdateQuantity(cartItem, "plus")}
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 rounded-full"
-          >
-            <Plus className="w-4 h-4" />
-            <span className="sr-only">increase</span>
-          </Button>
+    <div className="flex md:flex-row flex-col md:justify-between items-start space-x-4">
+      <div className="flex justify-between gap-4">
+        <img
+          src={cartItem?.image}
+          alt={cartItem?.title}
+          className="w-20 h-20 rounded object-cover border-1"
+        />
+        <div className="flex flex-col flex-1 justify-between">
+          <h3 className="font-semibold text-sm">{cartItem?.title} </h3>
+          <div className="flex items-center mt-1 gap-2">
+            <Button
+              onClick={() => handleUpdateQuantity(cartItem, "minus")}
+              variant="outline"
+              size="icon"
+              className="h-8 w-8 rounded-full"
+            >
+              <Minus className="w-4 h-4" />
+              <span className="sr-only">decrease</span>
+            </Button>
+            <span className="font-bold">{cartItem?.quantity}</span>
+            <Button
+              onClick={() => handleUpdateQuantity(cartItem, "plus")}
+              variant="outline"
+              size="icon"
+              className="h-8 w-8 rounded-full"
+            >
+              <Plus className="w-4 h-4" />
+              <span className="sr-only">increase</span>
+            </Button>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col items-end ">
+      <div className="flex md:flex-col flex-row items-center justify-between w-full md:w-fit gap-3 md:items-end md:mt-0 mt-2">
         <p className="font-semibold ">
           $
           {(
