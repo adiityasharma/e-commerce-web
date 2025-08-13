@@ -18,7 +18,7 @@ import {
   resetOrderDetails,
 } from "@/features/admin/orderSlice.js";
 import { Badge } from "../ui/badge";
-import ShoppingOrdersDetailsView from "../shopping/OrdersDetails";
+import ShoppingOrdersDetailsView from "../shopping/OrdersDetails.jsx";
 
 const AdminOrdersView = () => {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
@@ -43,7 +43,7 @@ const AdminOrdersView = () => {
         <CardTitle>All Orders</CardTitle>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className={`overflow-auto w-[90vw] sm:w-fit `}>
         <Table>
           <TableHeader>
             <TableRow>
